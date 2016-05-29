@@ -1,0 +1,43 @@
+body{
+    background-color: #00BFFF;
+}
+#imgP{
+    width: 85%;
+    height: auto;
+    padding: 10px;
+    margin: 5px 15px 5px 15px;
+}
+#title{
+    text-align: center;
+    font-family: Snap ITC;
+    font-size: 60px;
+    color: #FF9900;
+}
+#lil a {
+    display: block;
+    color: #000;
+    padding: 8px 0 8px 16px;
+    text-decoration: none;
+}
+
+#lil a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#lil a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+}
+#colonna, #ull {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #f1f1f1;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+}
+#ull {
+    width: 16.65%;
+}

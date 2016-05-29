@@ -1,0 +1,94 @@
+/*schermo*/
+#display {
+    width: 680px;
+    height: 100px;
+    background-color: black;
+    color: lawngreen;
+    font-family: Arial;
+    font-size: 45px;
+    margin-bottom: 12px;
+    resize: none;
+}
+
+/*bottoni*/
+.numeri {
+    width: 130px;
+    height: 60px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.bM { /*bottoni modifiche*/
+    width: 130px;
+    height: 60px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    background-color: #494d4f;
+    color: white;
+    font-weight: bold;
+
+}
+
+.bT {
+    width: 110px;
+    height: 125px;
+    margin-bottom: 5px;
+    background-color: #de5300;
+    color: white;
+    font-weight: bold;
+}
+
+.Btt {
+    width: 110px;
+    height: 60px;
+    margin-bottom: 5px;
+    background-color: #494d4f;
+    color: white;
+}
+
+#serate {
+    width: 685px;
+}
+
+/*aree*/
+#Dnumeri {
+    margin-right: 10px;
+    float: left;
+
+}
+
+#DMod {
+    margin-right: 10px;
+    float: left;
+}
+
+#DT {
+    float: left;
+}
+
+#scontrino {
+    width: 500px;
+    height: 450px;
+    border: 1px solid #929596;
+    margin: 10px;
+    border-radius: 5px;
+    background-color: white;
+    overflow-y: auto;
+}
+
+#headeS {
+    text-align: center;
+}
+
+#headeS > h3 {
+    font-size: 50px;
+}
+
+#headeS > h5 {
+    font-size: 30px;
+}
+
+#corpoS {
+    font-size: 25px;
+}

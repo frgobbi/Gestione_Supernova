@@ -1,0 +1,24 @@
+#textImg, #Cont {
+    background-color: white;
+}
+
+.testo1{
+    font-family: "Comic Sans MS";
+    text-align: center;
+    color: #1b6d85;
+    font-size: 30px;
+}
+
+.testo2{
+    font-family: "Comic Sans MS";
+    text-align: left;
+    color: #df8a13;
+    font-size: 20px;
+}
+
+#Sq{
+    display: none;
+}
+#Invia{
+    display: none;
+}

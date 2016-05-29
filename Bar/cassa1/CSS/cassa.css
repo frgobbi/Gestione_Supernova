@@ -1,0 +1,34 @@
+#popupBox {
+    padding: 10px;
+    left: 8%;
+    display: none;
+    position: fixed;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    width: 70%;
+    height: auto;
+    color: #000000;
+    border: 5px solid #4E93A2;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    background-color: #FFFFFF;
+    z-index: 1000;
+    overflow-y: auto;
+    margin-left: 230px;
+}
+
+#overlay {
+    display: none;
+    opacity: 0.5;
+    background-color: black;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 999;
+}
+
+.btn-default.btn-on.active{background-color: #5BB75B;color: white;}
+.btn-default.btn-off.active{background-color: #DA4F49;color: white;}
