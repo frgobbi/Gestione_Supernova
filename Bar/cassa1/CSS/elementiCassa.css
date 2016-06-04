@@ -1,4 +1,4 @@
-/*schermo*/
+/*schermo & Scontrino*/
 #display {
     width: 680px;
     height: 100px;
@@ -8,6 +8,40 @@
     font-size: 45px;
     margin-bottom: 12px;
     resize: none;
+    padding-top: 15px;
+    padding-bottom: 15px;
+
+}
+
+#scontrino {
+    width: 500px;
+    height: 450px;
+    border: 1px solid #929596;
+    margin: 10px;
+    border-radius: 5px;
+    background-color: white;
+    overflow-y: auto;
+    text-align: center;
+}
+#headeS {
+    text-align: center;
+}
+
+#headeS > h3 {
+    font-size: 50px;
+}
+
+#headeS > h5 {
+    font-size: 30px;
+}
+
+#corpoS {
+    font-size: 25px;
+}
+#footerS {
+    font-size: 25px;
+    text-align: right;
+    padding-right: 15px;
 }
 
 /*bottoni*/
@@ -67,28 +101,3 @@
     float: left;
 }
 
-#scontrino {
-    width: 500px;
-    height: 450px;
-    border: 1px solid #929596;
-    margin: 10px;
-    border-radius: 5px;
-    background-color: white;
-    overflow-y: auto;
-}
-
-#headeS {
-    text-align: center;
-}
-
-#headeS > h3 {
-    font-size: 50px;
-}
-
-#headeS > h5 {
-    font-size: 30px;
-}
-
-#corpoS {
-    font-size: 25px;
-}

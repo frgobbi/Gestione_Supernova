@@ -6,7 +6,7 @@
         include '../Librerie/Base/librerie.php';
         Ll1();
         ?>
-        
+        <link rel="stylesheet" href="../Librerie/CSS/Unlog.css">
         <style type="text/css">
             #page-wrapper{
                 height: 800px;
@@ -95,7 +95,7 @@
                             <input type="password" name="pass" placeholder="Password" class="form-control">
                         </div>
                         <button type="submit" class="btn btn-success">Sign in</button>
-                        <button id="badje" class="btn btn-success" type="button" onclick="window.location.href = 'badje.php'"> Sign in with Badje </button>
+                        <button id="badje" class="btn btn-success" type="button" onclick="window.location.href = 'badge.php'"> Sign in with Badge </button>
                     </form>        
                 </ul>
             </nav>
@@ -122,7 +122,7 @@
                                             <span class="glyphicon glyphicon-user set-logo"></span>
                                         </div>
                                     </div>
-                                    <center><h3 class="form-signin-heading">Passa il badje o inserisci il tuo codice</h3></center>
+                                    <center><h3 class="form-signin-heading">Passa il badge o inserisci il tuo codice</h3></center>
                                     <div style="margin-bottom: 25px" class="input-group">
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-credit-card"></i></span>
                                         <input type="password" class="form-control input-lg" id="cod" name="cod" placeholder="Username" autofocus>

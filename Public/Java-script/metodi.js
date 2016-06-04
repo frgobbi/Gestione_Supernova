@@ -13,28 +13,33 @@ function AggiungiRiga(num) {
     var cell4 = row.insertCell(3);
     var cell5 = row.insertCell(4);
     var cell6 = row.insertCell(5);
-    cell1.innerHTML = "<td><div id=\"DGnomeG"+num+"\"  class='form-group'>"
-        +"<input class=\"form-control\" type=\"text\" id=\"nomeG" +num+ "\" name=\"nomeG" +num+ "\" required></td>"
-        +"<span id=\"GnomeG"+num+"\" class=\"glyphicon glyphicon-remove form-control-feedback\" aria-hidden=\"true\"></span></div>";
+    var cell7 = row.insertCell(6);
+    cell1.innerHTML = "<td><div id=\"DGnomeG"+num+"\" class='form-group'>"
+        +"<input class=\"form-control\" type=\"text\" onblur=\"controlla('nomeG"+num+"')\" id=\"nomeG"+num+"\" name=\"nomeG"+num+"\" required>"
+        +"<span id=\"GnomeG"+num+"\" class=\"glyphicon glyphicon-remove form-control-feedback\" aria-hidden=\"true\"></span></div></td>";
 
     cell2.innerHTML = "<td><div id=\"DGcognomeG"+num+"\" class='form-group'>"
-        +"<input class=\"form-control\" type=\"text\" id=\"cognomeG" +num+"\" name=\"cognomeG" +num+ "\" required>"
+        +"<input class=\"form-control\" type=\"text\" id=\"cognomeG"+num+"\" onblur=\"controlla('cognomeG"+num+"')\" name=\"cognomeG"+num+"\" required>"
         +"<span id=\"GcognomeG"+num+"\" class=\"glyphicon glyphicon-remove form-control-feedback\" aria-hidden=\"true\"></span></div></td>";
 
     cell3.innerHTML = "<td><div id=\"DGdateG"+num+"\" class='form-group'>"
         +"<input type=\"text\" id=\"dateG" +num+ "\" name=\"dateG" +num+ "\" class=\"form-control floating-label\" placeholder=\"Date\" required>"
         +"<span id=\"GdateG"+num+"\" class=\"glyphicon glyphicon-remove form-control-feedback\" aria-hidden=\"true\"></span></div></td>";
 
-    cell4.innerHTML = "<td><div id=\"DGcodG"+num+"\" class='form-group'>"
-        +"<input class=\"form-control\" type=\"text\" id=\"codG" +num+ "\" name=\"codG" +num+ "\" required>"
+    cell4.innerHTML = "<td><div id=\"DGLuogoG"+num+"\" class='form-group'>"
+        +"<input class=\"form-control\" type=\"text\" id=\"LuogoG"+num+"\" onblur=\"controlla('LuogoG"+num+"')\" name=\"LuogoG"+num+"\" required>"
+        +"<span id=\"GLuogoG"+num+"\" class=\"glyphicon glyphicon-remove form-control-feedback\" aria-hidden=\"true\"></span></div></td>";
+
+    cell5.innerHTML = "<td><div id=\"DGcodG"+num+"\" class='form-group'>"
+        +"<input class=\"form-control\" type=\"text\" id=\"codG"+num+"\" onkeyup=\"touppercase(this.id,this.value);\" onblur=\"controlla('codG"+num+"')\" name=\"codG"+num+"\" required>"
         +"<span id=\"GcodG"+num+"\" class=\"glyphicon glyphicon-remove form-control-feedback\" aria-hidden=\"true\"></span></div></td>";
 
-    cell5.innerHTML = "<td><div id=\"DGresG"+num+"\" class='form-group'>"
-        +"<input class=\"form-control\" type=\"text\" id=\"resG" +num+ "\" name=\"serG" +num+ "\" required>"
+    cell6.innerHTML = "<td><div id=\"DGresG"+num+"\" class='form-group'>"
+        +"<input class=\"form-control\" type=\"text\" id=\"resG" + num + "\" onblur=\"controlla('resG"+num+"')\" name=\"resG" + num + "\" required>"
         +"<span id=\"GresG"+num+"\" class=\"glyphicon glyphicon-remove form-control-feedback\" aria-hidden=\"true\"></span></div></td>";
 
-    cell6.innerHTML = "<td><div class='form-group'>"
-        +"<input type=\"file\" class=\"filestyle\" id=\"file" +num+ "\" data-input=\"false\" name='file" +num+ "'>"
+    cell7.innerHTML = "<td><div class='form-group'>"
+        +"<input type=\"file\" class=\"filestyle\" id=\"file"+num+"\" data-input=\"false\" name='file"+num+ "'>"
         +"</div></td>";
 }
 
@@ -149,12 +154,14 @@ function submitF() {
         var nome = "nomeG"+i;
         var cognome = "cognomeG"+i;
         var data = "dateG"+i;
+        var luogo = "LuogoG"+i
         var cod = "codG"+i;
         var res = "resG"+i;
 
         var stringaN = document.getElementById(nome).value;
         var stringaC = document.getElementById(cognome).value;
         var stringaD = document.getElementById(data).value;
+        var stringaL = document.getElementById(luogo).value;
         var stringaCod = document.getElementById(cod).value;
         var stringaR = document.getElementById(res).value;
 
@@ -207,9 +214,25 @@ function submitF() {
             //$(data).popover('destroy');
         }
 
+        var DG = "#DG"+luogo;
+        var G = "#G"+luogo;
+        if((stringaCod.localeCompare(""))==0){
+
+
+            $(DG).addClass("has-error has-feedback");
+            $(G).show();
+            //$(cod).popover({title: "Campo Obbligatorio", content: "Questo campo è obbligatorio", placement: "top"});
+            //$(cod).popover('show');
+            controllo = 1;
+        } else {
+            $(DG).removeClass("has-error has-feedback");
+            $(G).hide();
+            //$(cod).popover('destroy');
+        }
+
         var DG = "#DG"+cod;
         var G = "#G"+cod;
-        if((stringaCod.localeCompare(""))==0){
+        if((stringaL.localeCompare(""))==0){
 
 
             $(DG).addClass("has-error has-feedback");
@@ -339,4 +362,5 @@ function controllaSQ(id) {
         });
     }
 }
+
 

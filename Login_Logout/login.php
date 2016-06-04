@@ -33,8 +33,9 @@ if ($_SESSION['login'] != TRUE) {
         <?php
         session_start();
         include '../Librerie/Base/librerie.php';
-        Lesterne();
+        Ll1();
         ?>
+        <link rel="stylesheet" href="../Librerie/CSS/Unlog.css">
         <link href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
         <style type="text/css">
             .login {
@@ -96,7 +97,7 @@ if ($_SESSION['login'] != TRUE) {
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
 
-                <a class="navbar-brand" href="../index.php">Supernova 3.0</a>
+                <a class="navbar-brand" href="../index.php">Torneo Supernova</a>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
@@ -109,9 +110,9 @@ if ($_SESSION['login'] != TRUE) {
                         <input type="password" name="pass" placeholder="Password" class="form-control">
                     </div>
                     <button type="submit" class="btn btn-success">Sign in</button>
-                    <button id="badje" class="btn btn-success" type="button"
-                            onclick="window.location.href = 'badje.php'">
-                        Sign in with Badje
+                    <button id="badge" class="btn btn-success" type="button"
+                            onclick="window.location.href = 'badge.php'">
+                        Sign in with Badge
                     </button>
                 </form>
             </ul>

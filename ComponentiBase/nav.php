@@ -50,7 +50,7 @@ function navUnlog() {
                     <input type="password" name="pass" placeholder="Password" class="form-control">
                 </div>
                 <button type="submit" class="btn btn-success">Sign in</button>
-                <button id="badje" class="btn btn-success" type="button" onclick="window.location.href='Login_Logout/badje.php'"> Sign in with Badje </button>
+                <button id="badje" class="btn btn-success" type="button" onclick="window.location.href='Login_Logout/badge.php'"> Sign in with Badge </button>
             </form>
         </ul>
     </nav>
@@ -76,7 +76,7 @@ function navUnlogPublic() {
                     <input type="password" name="pass" placeholder="Password" class="form-control">
                 </div>
                 <button type="submit" class="btn btn-success">Sign in</button>
-                <button id="badje" class="btn btn-success" type="button" onclick="window.location.href='../Login_Logout/badje.php'"> Sign in with Badje </button>
+                <button id="badje" class="btn btn-success" type="button" onclick="window.location.href='../Login_Logout/badge.php'"> Sign in with Badje </button>
             </form>
         </ul>
     </nav>

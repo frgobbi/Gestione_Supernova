@@ -66,13 +66,17 @@ for($i=0;$i<$numero_G;$i++){
     $Kdata = "dateG".$i;
     $Kcod = "codG".$i;
     $Kres = "resG".$i;
+    $Kres = "resG".$i;
+    $Kluogo = "LuogoG".$i;
 
 
     $nome = filter_input(INPUT_POST, $Knome, FILTER_SANITIZE_STRING);
     $cognome = filter_input(INPUT_POST, $Kcognome, FILTER_SANITIZE_STRING);
     $data = filter_input(INPUT_POST, $Kdata, FILTER_SANITIZE_STRING);
     $cod = filter_input(INPUT_POST, $Kcod, FILTER_SANITIZE_STRING);
+    $cod = strtoupper($cod);
     $res = filter_input(INPUT_POST, $Kres, FILTER_SANITIZE_STRING);
+    $Luogo = filter_input(INPUT_POST, $Kluogo, FILTER_SANITIZE_STRING);
 
     $keyF = "file".$i;
     if ($_FILES[$keyF]['name'] != "") {
@@ -91,8 +95,8 @@ for($i=0;$i<$numero_G;$i++){
         $foto = "immaginiApp/Giocatori/profiloU.jpg";
 
     }
-    $sql = "INSERT INTO `giocatore` (`id_g`, `nome`, `cognome`, `d_nascita`, `CodiceFiscale`, `Res`, `foto`, `gol`, `c_gialli`, `c_rossi`, `id_squadra`)"
-        ." VALUES (NULL, '$nome', '$cognome', '$data', '$cod', '$res', '$foto', '0', '0', '0', '$id_SQ');";
+    $sql = "INSERT INTO `giocatore`(`id_g`, `nome`, `cognome`, `d_nascita`, `Luogo_n`, `CodiceFiscale`, `Res`, `foto`, `gol`, `c_gialli`, `c_rossi`, `id_squadra`) "
+        ." VALUES (NULL, '$nome', '$cognome', '$data', '$Luogo', '$cod', '$res', '$foto', '0', '0', '0', '$id_SQ');";
 
         $connessione->exec($sql);
 

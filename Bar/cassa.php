@@ -66,7 +66,7 @@ session_start();
                                     <tbody>
                                     <?php
                                     $evento = $_SESSION['id_evento'];
-                                    $sql = "SELECT d_ord, nome_evento, incasso, n_ordini, chiusura FROM serata INNER JOIN evento ON serata.id_evento = evento.id_evento WHERE serata.id_evento = 1";
+                                    $sql = "SELECT d_ord, nome_evento, n_ordini, chiusura FROM serata INNER JOIN evento ON serata.id_evento = evento.id_evento WHERE serata.id_evento = 1";
                                     include "../connessione.php";
 
                                     foreach ($connessione->query($sql) as $row) {
@@ -75,14 +75,14 @@ session_start();
                                         $idF = "chiusura" . $row['d_ord'] . "F";
                                         $idLT = "label" . $row['d_ord'] . "T";
                                         $idLF = "label" . $row['d_ord'] . "F";
-                                        $incasso = "incasso".$row['d_ord'];
+                                       // $incasso = "incasso".$row['d_ord'];
                                         $nOrd = "numO".$row['d_ord'];
                                         $idR = "reset".$row['d_ord'];
                                         $date = $row['d_ord'];
                                         echo "<tr>";
                                         echo "<td>" . $row['d_ord'] . "</td>";
                                         echo "<td>" . $row['nome_evento'] . "</td>";
-                                        echo "<td id=\"$incasso\">" . $row['incasso'] . " &euro; </td>";
+                                        //echo "<td id=\"$incasso\">" . $row['incasso'] . " &euro; </td>";
                                         echo "<td id=\"$nOrd\">" . $row['n_ordini'] . "</td>";
                                         if ($row['chiusura'] != 1) {
                                             echo "<td align='center'>";
@@ -109,104 +109,109 @@ session_start();
 
 
                                     echo"</tbody>";
-                                echo"</table>";
-                            echo"</div>";
-                            echo"<div class=\"col-md-4\">";
-                                echo"<div class=\"panel panel-default\">";
+                                    echo"</table>";
+                                    echo"</div>";
+                                    echo"<div class=\"col-md-4\">";
+                                    echo"<div class=\"panel panel-default\">";
                                     echo"<div class=\"panel-heading\">Nuova Serata</div>";
                                     echo"<div class=\"panel-body\">";
-                                        echo"<button class=\"btn btn-success btn-block btn-lg\" onclick=\"controlloN($evento)\">Apri una nuova <br> Serata</button>";
+                                    echo"<button class=\"btn btn-success btn-block btn-lg\" onclick=\"controlloN($evento)\">Apri una nuova <br> Serata</button>";
                                     echo"</div>";
-                                echo"</div>";
-                            echo"</div>";
-                        ?>
+                                    echo"</div>";
+                                    echo"</div>";
+                                    ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-12 col-sm-12">
+                    <?php
+                    include "../connessione.php";
+                    $sql ="SELECT * FROM prodotto INNER JOIN categoria ON prodotto.id_cat = categoria.id_cat  WHERE prodotto.vendita = 1 ORDER BY(prodotto.id_cat)";
+                    foreach ($connessione->query($sql) as $row){
+                        $colore = "btn-".$row['colore'];
+                        $nome = $row['nome_p'];
+                        $prezzo = $row['prezzo'];
+                        $id_p = $row['id_prodotto'];
+                        echo("<button type=\"button\" class=\"btn $colore btn-lg btn-block\" onclick=\"automatico($prezzo,'$nome','$id_p')\">$nome</button>");
+                    }
+                    $connessione = null;
+                    ?>
+                </div>
+                <div class="col-lg-5 col-md-12">
+                    <div class="row">
+                        <textarea  id="display"></textarea>
+                    </div>
+                    <div class="row">
+                        <div id="Dnumeri">
+                            <button class="numeri btn btn-lg btn-default" onclick="tastiera('1')">1</button>
+                            <button class="numeri btn btn-lg btn-default" onclick="tastiera('2')">2</button>
+                            <button class="numeri btn btn-lg btn-default" onclick="tastiera('3')">3</button>
+                            <br>
+
+                            <button class="numeri btn btn-lg btn-default" onclick="tastiera('4')">4</button>
+                            <button class="numeri btn btn-lg btn-default" onclick="tastiera('5')">5</button>
+                            <button class="numeri btn btn-lg btn-default" onclick="tastiera('6')">6</button>
+                            <br>
+
+                            <button class="numeri btn btn-lg btn-default" onclick="tastiera('7')">7</button>
+                            <button class="numeri btn btn-lg btn-default" onclick="tastiera('8')">8</button>
+                            <button class="numeri btn btn-lg btn-default" onclick="tastiera('9')">9</button>
+                            <br>
+
+                            <button class="numeri btn btn-lg btn-default" onclick="tastiera('0')">0</button>
+                            <button class="numeri btn btn-lg btn-default" onclick="tastiera('00')">00</button>
+                            <button class="numeri btn btn-lg btn-default" onclick="tastiera('.')">.</button>
+                            <br>
+                        </div>
+                        <div id="DMod">
+                            <button class="bM btn btn-lg btn-default" onclick="X()">X</button>
+                            <br>
+                            <button class="bM btn btn-lg btn-default" onclick="annulla()">Annulla</button>
+                            <br>
+                            <button class="bM btn btn-lg btn-default" onclick="cancella()">Cancella</button>
+                            <br>
+                            <button class="bM btn btn-lg btn-default" onclick="del()">Del</button>
+                            <br>
+                        </div>
+                        <div id="DT">
+                            <button class="Btt btn btn-lg btn-default" onclick="varie()">Varie</button>
+                            <br>
+                            <button class="Btt btn btn-lg btn-default" onclick="subtot(0)">SUB</button>
+                            <br>
+                            <button id="tot" class="bT btn btn-lg btn-default" onclick="tot(0)">TOT</button>
+                            <br>
+                        </div>
+                        <br><br>
+                        <div id="serate">
+
+                            <button id="serate" style="height: 100px" class="btn btn-warning btn-lg btn-block" onclick="GPopup()">Serate</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <button class="btn btn-lg btn-primary btn-block" onclick="tot(1)">Buono</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" id="scontrino">
+                            <div id="headeS">
+                                <h3>Torneo Supernova</h3>
+                                <h5>dal 11 al 17 luglio 2016</h5>
+                                <hr class="divisore">
+                            </div>
+                            <div id="corpoS"></div>
+                            <div id="footerS">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-        </div>
-        <div class="row">
-            <div class="col-lg-3 col-md-12">
-                <button type="button" class="btn btn-info btn-lg btn-block" onclick="automatico(1.5,'panino')">
-                    prodotto
-                </button>
-                <button type="button" class="btn btn-danger btn-lg btn-block">prodotto</button>
-                <button type="button" class="btn btn-warning btn-lg btn-block">prodotto</button>
-            </div>
-            <div class="col-lg-5 col-md-12">
-                <div class="row">
-                    <textarea id="display"></textarea>
-                </div>
-                <div class="row">
-                    <div id="Dnumeri">
-                        <button class="numeri btn btn-lg btn-default" onclick="tastiera('1')">1</button>
-                        <button class="numeri btn btn-lg btn-default" onclick="tastiera('2')">2</button>
-                        <button class="numeri btn btn-lg btn-default" onclick="tastiera('3')">3</button>
-                        <br>
-
-                        <button class="numeri btn btn-lg btn-default" onclick="tastiera('4')">4</button>
-                        <button class="numeri btn btn-lg btn-default" onclick="tastiera('5')">5</button>
-                        <button class="numeri btn btn-lg btn-default" onclick="tastiera('6')">6</button>
-                        <br>
-
-                        <button class="numeri btn btn-lg btn-default" onclick="tastiera('7')">7</button>
-                        <button class="numeri btn btn-lg btn-default" onclick="tastiera('8')">8</button>
-                        <button class="numeri btn btn-lg btn-default" onclick="tastiera('9')">9</button>
-                        <br>
-
-                        <button class="numeri btn btn-lg btn-default" onclick="tastiera('0')">0</button>
-                        <button class="numeri btn btn-lg btn-default" onclick="tastiera('00')">00</button>
-                        <button class="numeri btn btn-lg btn-default" onclick="tastiera('.')">.</button>
-                        <br>
-                    </div>
-                    <div id="DMod">
-                        <button class="bM btn btn-lg btn-default" onclick="X()">X</button>
-                        <br>
-                        <button class="bM btn btn-lg btn-default" onclick="annulla()">Annulla</button>
-                        <br>
-                        <button class="bM btn btn-lg btn-default" onclick="cancella()">Cancella</button>
-                        <br>
-                        <button class="bM btn btn-lg btn-default" onclick="del()">Del</button>
-                        <br>
-                    </div>
-                    <div id="DT">
-                        <button class="Btt btn btn-lg btn-default" onclick="varie()">Varie</button>
-                        <br>
-                        <button class="Btt btn btn-lg btn-default" onclick="subtot()">SUB</button>
-                        <br>
-                        <button id="tot" class="bT btn btn-lg btn-default" onclick="tot()">TOT</button>
-                        <br>
-                    </div>
-                    <br><br>
-                    <div id="serate">
-
-                        <button id="serate" class="btn btn-warning btn-lg btn-block" onclick="GPopup()">Serate</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-12">
-                <div class="row">
-                    <div class="col-lg-7 col-lg-offset-3 col-md-12">
-                        <div class="btn-group">
-                            <button class="Btt btn btn-lg btn-default active">Contanti</button>
-                            <button class="Btt btn btn-lg btn-default">Buono</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12" id="scontrino">
-                        <div id="headeS">
-                            <h3>Torneo Supernova</h3>
-                            <h5>dal 11 al 17 luglio 2016</h5>
-                        </div>
-                        <div id="corpoS"></div>
-                        <div id="footerS"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
     <!-- /.container-fluid -->
 

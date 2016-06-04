@@ -7,167 +7,9 @@
     include '../Librerie/Base/librerie.php';
     Ll1();
     ?>
-    <style type="text/css">
+    <script src="javascript/metodi-Gprodotto.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="CSS-Bar/CSS.css">
 
-        .btn span.glyphicon {
-            opacity: 0;
-        }
-        .btn.active span.glyphicon {
-            opacity: 1;
-        }
-
-        #panelProdotti {
-            height: 650px;
-            overflow-x: auto;
-
-        }
-
-        .material-switch > input[type="checkbox"] {
-            display: none;
-        }
-
-        .material-switch > label {
-            cursor: pointer;
-            height: 0px;
-            position: relative;
-            width: 40px;
-        }
-
-        .material-switch > label::before {
-            background: rgb(0, 0, 0);
-            box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
-            border-radius: 8px;
-            content: '';
-            height: 16px;
-            margin-top: -8px;
-            position: absolute;
-            opacity: 0.3;
-            transition: all 0.4s ease-in-out;
-            width: 40px;
-        }
-
-        .material-switch > label::after {
-            background: rgb(255, 255, 255);
-            border-radius: 16px;
-            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
-            content: '';
-            height: 24px;
-            left: -4px;
-            margin-top: -8px;
-            position: absolute;
-            top: -4px;
-            transition: all 0.3s ease-in-out;
-            width: 24px;
-        }
-
-        .material-switch > input[type="checkbox"]:checked + label::before {
-            background: inherit;
-            opacity: 0.5;
-        }
-
-        .material-switch > input[type="checkbox"]:checked + label::after {
-            background: inherit;
-            left: 20px;
-        }
-
-        .panel > .list-group .list-group-item:first-child {
-            /*border-top: 1px solid rgb(204, 204, 204);*/
-        }
-
-        @media (max-width: 767px) {
-            .visible-xs {
-                display: inline-block !important;
-            }
-
-            .block {
-                display: block !important;
-                width: 100%;
-                height: 1px !important;
-            }
-        }
-
-        #back-to-bootsnipp {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-        }
-
-        .c-search > .form-control {
-            border-radius: 0px;
-            border-width: 0px;
-            border-bottom-width: 1px;
-            font-size: 1.3em;
-            padding: 12px 12px;
-            height: 44px;
-            outline: none !important;
-        }
-
-        .c-search > .form-control:focus {
-            outline: 0px !important;
-            -webkit-appearance: none;
-            box-shadow: none;
-        }
-
-        .c-search > .input-group-btn .btn {
-            border-radius: 0px;
-            border-width: 0px;
-            border-left-width: 1px;
-            border-bottom-width: 1px;
-            height: 44px;
-        }
-
-        .c-list {
-            padding: 0px;
-            min-height: 44px;
-        }
-
-        #prodotti {
-            display: inline-block;
-            font-size: 1.7em;
-            font-weight: bold;
-            padding: 5px 15px;
-        }
-
-        ul.c-controls {
-            list-style: none;
-            margin: 0px;
-            min-height: 44px;
-        }
-
-        ul.c-controls li {
-            margin-top: 8px;
-            float: left;
-        }
-
-        ul.c-controls li a {
-            font-size: 1.7em;
-            padding: 11px 10px 6px;
-        }
-
-        ul.c-controls li a i {
-            min-width: 24px;
-            text-align: center;
-        }
-
-        ul.c-controls li a:hover {
-            background-color: rgba(51, 51, 51, 0.2);
-        }
-
-        .c-toggle {
-            font-size: 1.7em;
-        }
-
-        .name {
-            font-size: 1.7em;
-            font-weight: 700;
-        }
-
-        .c-info {
-            padding: 5px 10px;
-            font-size: 1.25em;
-        }
-
-    </style>
     <script src="//rawgithub.com/stidges/jquery-searchable/master/dist/jquery.searchable-1.0.0.min.js"></script>
     <script type="text/javascript">
 
@@ -209,71 +51,6 @@
                 }
             })
         });
-
-
-        function modCAT(id, colore) {
-            var colors = [
-                "danger",
-                "warning",
-                "success",
-                "primary",
-                "info",
-                "default"
-            ];
-            var keyC = "#colore"+id;
-            var codiceC = "<td id=\"colore"+id+"\">"
-                    +"<select class=\"form-control\" id=\"Select"+id+"\" name=\"select"+id+"\">";
-
-            switch (colore){
-                case "danger": codiceC = codiceC + "<option value=\"danger\">Rosso</option>";
-                    break;
-                case "warning": codiceC = codiceC + "<option value=\"warning\">Giallo</option>";
-                    break;
-                case "success": codiceC = codiceC + "<option value=\"success\">Verde</option>";
-                    break;
-                case "primary": codiceC = codiceC + "<option value=\"primary\">Blu</option>";
-                    break;
-                case "info": codiceC = codiceC + "<option value=\"info\">Celeste</option>";
-                    break;
-                case "default": codiceC = codiceC + "<option value=\"default\">Bianco</option>";
-                    break;
-            }
-            for(var i =0; i <colors.length;i++) {
-                if (colore.localeCompare(colors[i]) != 0) {
-                    switch (colors[i]) {
-                        case "danger":
-                            codiceC = codiceC + "<option value=\"danger\">Rosso</option>";
-                            break;
-                        case "warning":
-                            codiceC = codiceC + "<option value=\"warning\">Giallo</option>";
-                            break;
-                        case "success":
-                            codiceC = codiceC + "<option value=\"success\">Verde</option>";
-                            break;
-                        case "primary":
-                            codiceC = codiceC + "<option value=\"primary\">Blu</option>";
-                            break;
-                        case "info":
-                            codiceC = codiceC + "<option value=\"info\">Celeste</option>";
-                            break;
-                        case "default":
-                            codiceC = codiceC + "<option value=\"default\">Bianco</option>";
-                            break;
-                    }
-                }
-            }
-                codiceC += "</select>"
-                    +"</td>";
-
-
-            var keyM = "#modifica"+id;
-            var keyD = "#elimina"+id
-            $(keyC).replaceWith(codiceC);
-            $(keyM).replaceWith("<td id=\"conferma"+id+"\" align='center'><button onclick=\"confermaC("+id+")\" class='btn btn-success btn-md '><i class=\"fa fa-trash\" aria-hidden=\"true\"></i></button></td>");
-            $(keyD).replaceWith(codiceC);
-            
-        }
-
     </script>
     <style type="text/css">
         .riquadri {
@@ -315,7 +92,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-6 col-sm-12 col-xs-12">
 
                     <div id="panelProdotti" class="panel panel-default">
                         <div class="panel-heading c-list">
@@ -342,26 +119,49 @@
                             <?php
                             include "../connessione.php";
 
-                            foreach ($connessione->query("SELECT * FROM `prodotto`INNER JOIN categoria ON prodotto.id_cat = categoria.id_cat") as $row) {
+                            foreach ($connessione->query("SELECT * FROM `prodotto`INNER JOIN categoria ON prodotto.id_cat = categoria.id_cat ORDER BY(prodotto.id_cat)") as $row) {
                                 $idP = $row['id_prodotto'];
+                                if ($row['disp'] == NULL) {
+                                    $disp = "null";
+                                } else {
+                                    $disp = $row['disp'];
+                                }
                                 echo "<li id=\"contenutoP$idP\" class=\"list-group-item\">"
-                                    . "<div class=\"col-xs-12 col-sm-3\">"
-                                    . "<img src=\"http://api.randomuser.me/portraits/men/49.jpg\" alt=\"Scott Stevens\" class=\"img-responsive img-circle\" />"
+                                    //. "<div class=\"col-xs-12 col-sm-3\">"
+                                    //    . "<img src=\"../ImmaginiApp/Loghi/loghicibo/logoCibo.png\" class=\"img-responsive img-circle\" />"
+                                    //. "</div>"
+                                    . "<div class=\"col-xs-12 col-md-9 col-md-offset-1 col-sm-12\">"
+                                    . "<div class=\"col-xs-12 col-md-9 col-sm-12\">"
+                                    . "<span class=\"name\">" . $row['nome_p'] . "</span><br/>"
+                                    . "<span class=\"testo-grassetto\">Categoria</span><span class=\"testo\">&nbsp; " . $row['tipo_cat'] . "</span><br/>"
+                                    . "<span class=\"testo-grassetto\">Prezzo:</span><span class=\"testo\">&nbsp; " . $row['prezzo'] . " €</span><br/>"
+                                    . "<span class=\"testo-grassetto\">Disponibilt&agrave;</span>";
+                                if ($row['disp'] == NULL) {
+                                    echo "<span class=\"testo\">&nbsp; Nessun Vincolo</span><br/>";
+                                } else {
+                                    echo "<span class=\"testo\">&nbsp; " . $row['disp'] . " €</span><br/>";
+                                }
+
+                                echo "</div>"
+                                    . "<div class=\"col-xs-12 col-md-2 col-sm-12\"><br>"
+                                    . "<button type=\"button\" class=\"btn btn-md btn-danger btn-block\" onclick=\"eliminazione(" . $row['id_prodotto'] . ")\"><i class=\"fa fa-trash\"></i></button><br><br>"
+                                    . "<button type=\"button\" href=\"#\" class=\"btn btn-md btn-success btn-block\" onclick=\"modifica('" . $row['id_prodotto'] . "','" . $row['nome_p'] . "','" . $row['id_cat'] . "','" . $row['prezzo'] . "','" . $disp . "')\"><i class=\"fa fa-pencil\"></i></button>"
                                     . "</div>"
-                                    . "<div class=\"col-xs-12 col-sm-9\">"
-                                    . "<div class=\"col-xs-12 col-sm-10\">
-                                            <span class=\"name\">" . $row['nome_p'] . "</span><br/>
-                                            <span class=\"testo-grassetto\">Prezzo:</span><span class=\"testo\">&nbsp; " . $row['prezzo'] . " €</span><br/>
-                                            <span class=\"testo-grassetto\">Categoria:</span><span class=\"testo\">&nbsp; " . $row['tipo_cat'] . "
-                                           </span><br/>
-                                        </div>
-                                        <div class=\"col-xs-12 col-sm-2\"><br>
-                                         <button type=\"button\" class=\"btn btn-md btn-danger disable-button\" onclick=\"eliminazione(" . $row['id_prodotto'] . ")\"><i class=\"fa fa-trash\"></i></button><br><br>
-                                         <button type=\"button\" href=\"#\" class=\"btn btn-md btn-success disable-button\" onclick=\"modifica(" . $row['id_prodotto'] . ")\"><i class=\"fa fa-pencil\"></i></button>
-                                </div>                                    
-                                </div>
-                                <div class=\"clearfix\"></div>
-                            </li>";
+                                    . "</div>"
+                                    . "<div class=\"clearfix\"><br><br>"
+                                            ."<div class=\"form-group\">"
+                                                ."<div class=\"material-switch pull-right\">";
+                                                if($row['vendita'] == 1){
+                                                    echo  "<input type=\"checkbox\" id=\"vendita$idP\" name=\"vendita$idP\" onchange=\"vendita($idP)\" checked/>";
+                                                } else{
+                                                    echo  "<input type=\"checkbox\" id=\"vendita$idP\" name=\"vendita$idP\" onchange=\"vendita($idP)\"/>";
+                                                }
+                                                $class = "label-".$row['colore'];
+                                                echo "<label for=\"vendita$idP\" class=\"$class\"></label>
+                                                </div>
+                                            </div>
+                                        </div>"
+                                    . "</li>";
                             }
                             $connessione = null;
                             ?>
@@ -371,7 +171,7 @@
                     </div>
 
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-5 col-md-offset-1 col-sm-12 col-xs-12">
 
                     <div class="row">
                         <div class="col-xs-12 col-sm-12">
@@ -473,9 +273,8 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="disponibilita">Disponibilit&agrave: (spunta per nessun vincolo)</label>
-
-
+                                                                <label for="disponibilita">Disponibilit&agrave: (spunta
+                                                                    per nessun vincolo)</label>
                                                                 <div class="input-group">
                                                                     <input placeholder="Disponibilit&agrave di default"
                                                                            type="text" class="form-control"
@@ -484,38 +283,30 @@
                                                                       <span class="input-group-btn">
                                                                         <div class="btn-group" data-toggle="buttons">
                                                                             <label class="btn btn-primary">
-                                                                                <input name="nullable" type="checkbox" value="1">
-                                                                                <span class="glyphicon glyphicon-ok"></span>
+                                                                                <input id="nullable" name="nullable"
+                                                                                       type="checkbox" value="1"
+                                                                                       onchange="controlloNullIns()">
+                                                                                <span
+                                                                                    class="glyphicon glyphicon-ok"></span>
                                                                             </label>
                                                                         </div>
                                                                       </span>
-
                                                                 </div>
                                                             </div>
 
-                                                        <div class="form-group">
-                                                            <label>Vendibilit&agrave;:</label>
-                                                            <div class="material-switch pull-right">
-                                                                <input id="vendita" name="vendita" value="1"
-                                                                       type="checkbox"/>
-                                                                <label for="vendita" class="label-primary"></label>
-                                                            </div
+                                                            <div class="form-group">
+                                                                <label>Vendibilit&agrave;:</label>
+                                                                <div class="material-switch pull-right">
+                                                                    <input id="vendita" name="vendita" value="1"
+                                                                           type="checkbox"/>
+                                                                    <label for="vendita" class="label-primary"></label>
+                                                                </div
+                                                            </div>
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label>Bottone attivo: </label>
-                                                            <div class="material-switch pull-right">
-                                                                <input id="button" name="button" value="1"
-                                                                       type="checkbox"/>
-                                                                <label for="button" class="label-info"></label>
-                                                            </div
-                                                        </div>
-
-                                                    </div>
-
-
-                                                    <br/>
-                                                    <button type="submit" class="btn btn-primary btn-block">Inserisci
-                                                    </button>
+                                                        <br/>
+                                                        <button type="submit" class="btn btn-primary btn-block">
+                                                            Inserisci
+                                                        </button>
                                                 </form>
                                             </li>
                                         </ul>
@@ -589,34 +380,40 @@
                                             <tr>
                                                 <th>Nome Categoria</th>
                                                 <th>Colore</th>
-                                                <th>Modifica</th>
-                                                <th>Elimina</th>
+                                                <th></th>
+                                                <th></th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <?php
                                             $sql = "SELECT * FROM categoria";
                                             include "../connessione.php";
-                                            foreach($connessione->query($sql) as $row){
-                                            $id_cat = $row['id_cat'];
+                                            foreach ($connessione->query($sql) as $row) {
+                                                $id_cat = $row['id_cat'];
                                                 echo "<tr id=\"categoria$id_cat\">";
-                                                    echo "<td id=\"nome$id_cat\">".$row['tipo_cat']."</td>";
-                                                    switch ($row['colore']){
-                                                        case "danger": echo "<td id=\"colore$id_cat\">Rosso</td>";
-                                                            break;
-                                                        case "warning": echo "<td id=\"colore$id_cat\">Giallo</td>";
-                                                            break;
-                                                        case "success": echo "<td id=\"colore$id_cat\">Verde</td>";
-                                                            break;
-                                                        case "primary": echo "<td id=\"colore$id_cat\">Blu</td>";
-                                                            break;
-                                                        case "info": echo "<td id=\"colore$id_cat\">Celeste</td>";
-                                                            break;
-                                                        case "default": echo "<td id=\"colore$id_cat\">Bianco</td>";
-                                                            break;
-                                                    }
-                                                    echo "<td id=\"modifica$id_cat\" align='center'><button onclick='modCAT(".$id_cat.",\"".$row['colore']."\")' class='btn btn-primary btn-md'><i class=\"fa fa-pencil\" aria-hidden=\"true\"></i></button></td>";
-                                                    echo "<td id=\"elimina$id_cat\" align='center'><button onclick='deleteCAT(".$id_cat.")' class='btn btn-danger btn-md '><i class=\"fa fa-trash\" aria-hidden=\"true\"></i></button></td>";
+                                                echo "<td id=\"nome$id_cat\">" . $row['tipo_cat'] . "</td>";
+                                                switch ($row['colore']) {
+                                                    case "danger":
+                                                        echo "<td id=\"colore$id_cat\">Rosso</td>";
+                                                        break;
+                                                    case "warning":
+                                                        echo "<td id=\"colore$id_cat\">Giallo</td>";
+                                                        break;
+                                                    case "success":
+                                                        echo "<td id=\"colore$id_cat\">Verde</td>";
+                                                        break;
+                                                    case "primary":
+                                                        echo "<td id=\"colore$id_cat\">Blu</td>";
+                                                        break;
+                                                    case "info":
+                                                        echo "<td id=\"colore$id_cat\">Celeste</td>";
+                                                        break;
+                                                    case "default":
+                                                        echo "<td id=\"colore$id_cat\">Bianco</td>";
+                                                        break;
+                                                }
+                                                echo "<td id=\"modifica$id_cat\" align='center'><button onclick='modCAT(" . $id_cat . ",\"" . $row['colore'] . "\")' class='btn btn-primary btn-md'><i class=\"fa fa-pencil\" aria-hidden=\"true\"></i></button></td>";
+                                                echo "<td id=\"elimina$id_cat\" align='center'><button onclick='deleteCAT(" . $id_cat . ")' class='btn btn-danger btn-md '><i class=\"fa fa-trash\" aria-hidden=\"true\"></i></button></td>";
                                                 echo "</tr>";
                                             }
                                             $connessione = null;

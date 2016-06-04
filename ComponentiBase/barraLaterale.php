@@ -71,14 +71,17 @@ function risorse($funzione) {
             break;
         //se c‘è il sole...
         case 2:
-            $vettore = null;
+            $vettore = array(
+                array("Torneo/squadre.php", "Squadre","panel-info", "fa fa-pencil" ),
+                array("Torneo/giocatori.php", "Giocatori","panel-success", "fa fa-pencil" )
+            );
             break;
         case 3:
             $vettore = null;
             break;
         case 4:
             $vettore = array(
-                array("admin/Staff.php", "staff")
+                array("admin/Staff.php", "Staff","panel-yellow", "fa fa-pencil")
             );
             break;
         default:

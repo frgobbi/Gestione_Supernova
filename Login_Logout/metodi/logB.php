@@ -143,7 +143,7 @@ if ($_SESSION['login'] != TRUE) {
                         <input type="password" name="pass" placeholder="Password" class="form-control">
                     </div>
                     <button type="submit" class="btn btn-success">Sign in</button>
-                    <button id="badje" class="btn btn-success" type="button" onclick="window.location.href = '../badje.php'"> Sign in with Badje </button>
+                    <button id="badje" class="btn btn-success" type="button" onclick="window.location.href = '../badge.php'"> Sign in with Badje </button>
                 </form>
             </ul>
         </nav>

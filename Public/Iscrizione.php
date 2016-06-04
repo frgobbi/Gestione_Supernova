@@ -338,6 +338,7 @@
                                             <th>Nome<i class="fa fa-asterisk text-danger"></i></th>
                                             <th>Cognome<i class="fa fa-asterisk text-danger"></i></th>
                                             <th>Data di Nascita<i class="fa fa-asterisk text-danger"></i></th>
+                                            <th>Luogo di Nascita<i class="fa fa-asterisk text-danger"></i></th>
                                             <th>Codice Fiscale<i class="fa fa-asterisk text-danger"></i></th>
                                             <th>Residenza<i class="fa fa-asterisk text-danger"></i><br>
                                                 <small>(ES. Via mauro rossi 7 Perugia)</small>
@@ -363,9 +364,13 @@
                                                 echo "<td><div id=\"DGdateG".$i."\" class='form-group'>"
                                                     ."<input type=\"text\" id=\"dateG" . $i . "\" name=\"dateG" . $i . "\" class=\"form-control floating-label\" placeholder=\"Date\" required>"
                                                     ."<span id=\"GdateG".$i."\" class=\"glyphicon glyphicon-remove form-control-feedback\" aria-hidden=\"true\"></span></div></td>";
-
+                                            
+                                                echo "<td><div id=\"DGLuogoG".$i."\" class='form-group'>"
+                                                    ."<input class=\"form-control\" type=\"text\" id=\"LuogoG" . $i . "\" onblur=\"controlla('LuogoG".$i."')\" name=\"LuogoG" . $i . "\" required>"
+                                                    ."<span id=\"GLuogoG".$i."\" class=\"glyphicon glyphicon-remove form-control-feedback\" aria-hidden=\"true\"></span></div></td>";
+                                            
                                                 echo "<td><div id=\"DGcodG".$i."\" class='form-group'>"
-                                                    ."<input class=\"form-control\" type=\"text\" id=\"codG" . $i . "\" onblur=\"controlla('codG".$i."')\" name=\"codG" . $i . "\" required>"
+                                                    ."<input class=\"form-control\" type=\"text\" id=\"codG" . $i . "\" onkeyup=\"this.style.textTransform='uppercase'\" onblur=\"controlla('codG".$i."')\" name=\"codG" . $i . "\" required>"
                                                     ."<span id=\"GcodG".$i."\" class=\"glyphicon glyphicon-remove form-control-feedback\" aria-hidden=\"true\"></span></div></td>";
 
                                                 echo "<td><div id=\"DGresG".$i."\" class='form-group'>"

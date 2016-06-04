@@ -1,3 +1,4 @@
+<?php session_start();?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,8 +15,6 @@
 
             <!-- Navigation -->
             <?php
-            
-            session_start();
                 if($_SESSION['login']==TRUE){
                 }
                 else
