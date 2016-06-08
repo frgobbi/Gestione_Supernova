@@ -223,10 +223,10 @@
                                     echo "<div class=\"col-xs-12 col-md-9  col-sm-12\">"
                                         . "<div class=\"col-xs-12 col-md-11 col-sm-12\">"
                                         . "<span class=\"name\">" . $row['nomeSQ'] . "</span><br/>"
-                                        . "<span><strong>Categoria: </strong></span><span>&nbsp;" . $row['Nome_Ref'] . "</span><br/>"
+                                        . "<span><strong>Referente: </strong></span><span>&nbsp;" . $row['Nome_Ref'] . "</span><br/>"
                                         . "<span><strong>Email: </strong></span><span>&nbsp;" . $row['mail'] . "</span><br/>";
                                     if ($row['Numero'] != NULL) {
-                                        echo "<span><strong>Categoria: </strong></span><span>&nbsp;" . $row['Numero'] . "</span><br/>";
+                                        echo "<span><strong>Numero Referente: </strong></span><span>&nbsp;" . $row['Numero'] . "</span><br/>";
                                     }
                                     echo "<div class=\"table-responsive\">"
                                         . "<table class=\"table table-bordered table-hover\">"
@@ -282,6 +282,11 @@
                                         . "<tbody>";
                                     try {
                                         foreach ($connessione->query("SELECT * FROM giocatore WHERE id_squadra = $id") as $riga) {
+                                            $id_giocatore = $riga['id_g'];
+                                            $gol = $connessione->query("SELECT COUNT(*) AS GOL FROM `partita_giocatore` WHERE id_giocatore = $id_giocatore AND Gol = 1")->fetch(PDO::FETCH_OBJ);
+                                            $CartG = $connessione->query("SELECT COUNT(*) AS cart_G FROM `partita_giocatore` WHERE id_giocatore = $id_giocatore AND Cartellino_G = 1")->fetch(PDO::FETCH_OBJ);
+                                            $CartR= $connessione->query("SELECT COUNT(*) AS cart_R FROM `partita_giocatore` WHERE id_giocatore = $id_giocatore AND Cartellino_R = 1")->fetch(PDO::FETCH_OBJ);
+
                                             echo "<tr>"
                                                 . "<td>" . $riga['nome'] . "</td>"
                                                 . "<td>" . $riga['cognome'] . "</td>"
@@ -289,6 +294,9 @@
                                                 . "<td>" . $riga['Luogo_n'] . "</td>"
                                                 . "<td>" . $riga['CodiceFiscale'] . "</td>"
                                                 . "<td>" . $riga['Res'] . "</td>"
+                                                . "<td>" . $gol->GOL . "</td>"
+                                                . "<td>" . $CartG->cart_G . "</td>"
+                                                . "<td>" . $CartR->cart_R . "</td>"
                                                 . "</tr>";
                                         }
                                     } catch (PDOException $e) {

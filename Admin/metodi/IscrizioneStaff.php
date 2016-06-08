@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <?php
-$cod = "";
 
 //Genera codice Badge
 function generacod($nome, $cognome) {
+    $cod = "";
     $b = 0;
     while ($b == 0) {
         $Cnome = substr($nome, 0, 1);
@@ -62,15 +56,15 @@ function caricamentoFoto($nome, $cognome, $sesso) {
 
         $nomeF = $_FILES['img']['name'];
         //$nomeF =$matricola.".".$estensione;
-        $foto = "immagini/imgstaff" . $nome . "_" . $cognome . "." . $ex;
+        $foto = "ImmaginiApp/Profilo/" . $nome . "_" . $cognome . "." . $ex;
         $tmpNome = $_FILES['img']['tmp_name'];
         move_uploaded_file($tmpNome, "../../" . $foto);
     } else {
         $app = strcasecmp($sesso, "maschio");
         if ($app == 0) {
-            $foto = "immagini/imgstaff/profiloU.jpg";
+            $foto = "ImmaginiApp/Profilo/profiloU.jpg";
         } else {
-            $foto = "immagini/imgstaff/profiloD.jpg";
+            $foto = "ImmaginiApp/Profilo/profiloD.jpg";
         }
     }
     return $foto;
@@ -80,8 +74,9 @@ $nome = filter_input(INPUT_POST, "nome", FILTER_SANITIZE_STRING);
 $cognome = filter_input(INPUT_POST, "cognome", FILTER_SANITIZE_STRING);
 $email = filter_input(INPUT_POST, "email", FILTER_VALIDATE_EMAIL);
 $username = filter_input(INPUT_POST, "user", FILTER_SANITIZE_STRING);
+$data = filter_input(INPUT_POST, "date", FILTER_SANITIZE_STRING);
 $pass = filter_input(INPUT_POST, "pass", FILTER_SANITIZE_STRING);
-//$pass = password_hash($pass);
+$hash_password = password_hash($pass, PASSWORD_BCRYPT);
 
 $sesso = filter_input(INPUT_POST, "sesso", FILTER_SANITIZE_STRING);
 $tipo = filter_input(INPUT_POST, "tipo", FILTER_SANITIZE_NUMBER_INT);
@@ -103,39 +98,75 @@ include '../../connessione.php';
 try {
     $sql = $connessione->query("SELECT * FROM staff WHERE username='$username'");
     $count = $sql->rowCount();
-    echo($count);
     if ($count != 0) {
         ?>
         <script>
             alert("utente già inserito cambiare username");
+            location.href="../Staff.php";
         </script>
         <?php
     } 
     else 
     {
-        $sql = ("INSERT INTO `supernova`.`staff` (`nome`, `cognome`, `email`, `username`, `password`, `sesso`, `data_iscrizione`, `foto`, `cod`, `id_evento`, `id_staff`) VALUES ('$nome', '$cognome', '$email', '$username', '$pass', '$sesso', NOW(), '$Pfoto', '$codice', '$evento', '$tipo')");
+        $sql = ("INSERT INTO `staff` (`nome`, `cognome`, `data_nascita`, `email`, `username`, `pass`, `sesso`, `foto`, `cod`, `id_evento`, `id_staff`) VALUES ('$nome', '$cognome', '$data', '$email', '$username', '$hash_password', '$sesso', '$Pfoto', '$codice', '$evento', '$tipo')");
         $connessione->exec($sql);
+
+    }
+} catch (PDOException $e) {
             ?>
             <script>
                 alert("utente non inseito");
+                location.href="../Staff.php";
             </script>
             <?php
             $connessione = null;
-            header('Refresh:1;url=../Staff.php');
-    }
-} catch (PDOException $e) {
-    echo "Error: " . $e->getMessage();
+            //header('Refresh:1;url=../Staff.php');
 }
 
 $connessione = null;
+
+        include "../../Librerie/Mail/oggettoMail.php";
+
+
+        $mail->addAddress($email, 'Francesco Gobbi');     // Add a recipient
+        //$mail->addAddress('ellen@example.com');               // Name is optional
+        //$mail->addReplyTo('torneosupernova@gmail.com', 'Staff Supernova');
+        //$mail->addCC('cc@example.com');
+        //$mail->addBCC('bcc@example.com');
+
+        //$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+        //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+        $mail->isHTML(true);                                  // Set email format to HTML
+
+        $mail->Subject = 'Sei dello Staff';
+        $mail->Body    = "<h3>Ciao $nome $cognome, da ora fai parte dello staf del Supernova.</h3><br>
+					Per accedere alla piattaforma puoi entrare tramite username e password o tramite badge.<br><br>
+					<b>Username:</b>$username<br>
+					<b>password:</b>$pass<br>
+					<b>codice badge:</b> $codice<br><br><br>
+					Saluti staff Supernova.";
+        //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients";
+
+        if(!$mail->send()) {
+            //echo 'Message could not be sent.';
+           //echo 'Mailer Error: ' . $mail->ErrorInfo;
+        } else {
+            //echo 'Message has been sent';
+        }
+        
+        $mail = null;
 ?>
+
 <script>
     alert("nuovo utente inserito");
+    location.href="../Staff.php";
 </script>
 
 <?php
+echo "refreshhhh";
+//header('Refresh:1;url=../Staff.php');
 $connessione = null;
-header('Refresh:0.5;url=../Staff.php');
+
 ?>
  
 

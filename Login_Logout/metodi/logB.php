@@ -1,6 +1,7 @@
 <?php session_start();
 $_SESSION['login'] = FALSE;
 $cod = filter_input(INPUT_POST, "cod", FILTER_SANITIZE_STRING);
+$cod = strtoupper($cod);
 include "../../connessione.php";
 try {
     $sql = "SELECT * FROM `staff` WHERE `cod` = '$cod' ";

@@ -1,254 +1,291 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <?php
+    include '../Librerie/Base/librerie.php';
+    Ll1();
+    ?>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="../Librerie/bootstrap-material-datetimepicker-gh-pages/css/bootstrap-material-datetimepicker.css"/>
+    <link rel="stylesheet" href="../Public/CSS/input-file.css"/>
 
-    <head>
-        <?php
-        session_start();
-        include '../librerie/Base/librerie.php';
-        Ll1();
-        ?>
-        <script src="java-script/metodi.js" type="text/javas">
-            <script type="text/javascript">cript"></script>
-        <link rel="stylesheet" href="css/cssStaff.css">
-        <script type="text/javascript">
-            // CLEARABLE INPUT
-            function tog(v) {
-                return v ? 'addClass' : 'removeClass';
-            }
-            $(document).on('input', '.clearable', function () {
-                $(this)[tog(this.value)]('x');
-            }).on('mousemove', '.x', function (e) {
-                $(this)[tog(this.offsetWidth - 18 < e.clientX - this.getBoundingClientRect().left)]('onX');
-            }).on('touchstart click', '.onX', function (ev) {
-                ev.preventDefault();
-                $(this).removeClass('x onX').val('').change();
-            });
+    <!--<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>-->
+    <script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
+    <script type="text/javascript" src="../Librerie/bootstrap-material-datetimepicker-gh-pages/js/bootstrap-material-datetimepicker.js"></script>
 
-// $('.clearable').trigger("input");
-// Uncomment the line above if you pre-fill values from LS or server
-        </script>
+    <script type="text/javascript" src="../Librerie/file/bootstrap-filestyle.js"></script>
+    <script type="text/javascript">
+        /* Prima parte script DATE */
 
-    </head>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-    <body>
+        ga('create', 'UA-60343429-1', 'auto');
+        ga('send', 'pageview');
 
-        <div id="wrapper">
+    </script>
+</head>
+<body>
+<div id="wrapper">
+    <!-- Navigation -->
+    <?php
+    if ($_SESSION['login'] == TRUE) {
+    } else {
+        header("Location:../index.php");
+    }
+    require '../ComponentiBase/nav.php';
+    navLog($_SERVER['PHP_SELF']);
+    ?>
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Supernova 3.0
+                        <small>dal 11 luglio al 17 luglio 2016</small>
+                    </h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
 
-            <!-- Navigation -->
-            <?php
-            if ($_SESSION['login'] == TRUE) {
-                
-            } else {
-                header("Location:../index.php");
-            }
-
-            require '../ComponentiBase/nav.php';
-            navLog($_SERVER['PHP_SELF']);
-            ?>
-
-            <div id="page-wrapper">
-
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h1 class="page-header">
-                                Supernova 3.0
-                                <small>dal 11 luglio al 17 luglio 2016</small>
-                            </h1>
-                        </div>
-                    </div>
-                    <!-- Page Heading -->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="row" id="base">
-
-                                <div class="col-md-2 col-md-offset-1">
-                                    <button type="button" href="#" class="btn btn-lg btn-danger">Cancella Selezione</button>
-                                </div>
-                                <div class="col-md-4 col-md-offset-5">
-                                    <!-- barra laterale -->
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-8">
-                            <div class="panel panel-default contSTAFF">
-
+                            <div class="panel panel-default">
                                 <div class="panel-heading c-list">
-                                    <span class="title">STAFF SUPERNOVA</span>
+                                    <span class="title">Contacts</span>
+                                    <ul class="pull-right c-controls">
+                                        <li><a href="#cant-do-all-the-work-for-you" data-toggle="tooltip" data-placement="top" title="Add Contact"><i class="glyphicon glyphicon-plus"></i></a></li>
+                                        <li><a href="#" class="hide-search" data-command="toggle-search" data-toggle="tooltip" data-placement="top" title="Toggle Search"><i class="fa fa-ellipsis-v"></i></a></li>
+                                    </ul>
                                 </div>
+
+                                <div class="row" style="display: none;">
+                                    <div class="col-xs-12">
+                                        <div class="input-group c-search">
+                                            <input type="text" class="form-control" id="contact-list-search">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search text-muted"></span></button>
+                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <ul class="list-group" id="contact-list">
-
-                                    <?php
-                                    $sql = "SELECT * FROM staff NATURAL JOIN tipo_staff NATURAL JOIN evento WHERE 1";
-                                    include '../connessione.php';
-
-                                    try {
-                                        foreach ($connessione->query($sql) as $row) {
-
-                                            echo("<li id=\"" . $row['username'] . "\" class=\"list-group-item\">");
-                                            echo("<div class=\"col-xs-12 col-md-1\">");
-                                            echo("<br><br><br><br>");
-                                            echo("<div class=\"btn-group\" data-toggle=\"buttons\">");
-                                            echo("<label class=\"btn btn-default\">");
-                                            echo("<input nema=\"S" . $row['username'] . "\" type=\"checkbox\" autocomplete=\"off\">");
-                                            echo("<span class=\"glyphicon glyphicon-ok\"></span>");
-                                            echo("</label>");
-                                            echo("</div>");
-                                            echo("</div>");
-                                            echo("<div class=\"col-xs-12 col-md-3\">");
-                                            echo("<img src=\"../" . $row['foto'] . "\" alt=\"" . $row['nome'] . " " . $row['cognome'] . "\" class=\"img-responsive img-thumbnail img-circle\" />");
-                                            echo("</div>");
-                                            echo("<div class=\"col-xs-12 col-md-8\">");
-                                            echo("<span class=\"name\">" . $row['nome'] . " " . $row['cognome'] . "</span><br/>");
-                                            echo("<div class=\"row\">");
-                                            echo("<div class=\"col-md-7\">");
-                                            echo("<span class=\"testo grassetto\">Data: </span>&nbsp<span class=\"testo\">" . $row['data_nascita'] . "</span><br>");
-                                            echo("<span class=\"testo grassetto\">Sesso: </span>&nbsp<span class=\"testo\">" . $row['sesso'] . "</span>&nbsp<br>");
-                                            echo("<span class=\"testo grassetto\">User: </span>&nbsp<span class=\"testo\">" . $row['username'] . "</span>&nbsp<br>");
-                                            echo("<span class=\"testo grassetto\">email: </span>&nbsp<span class=\"testo\">" . $row['email'] . "</span>&nbsp<br>");
-                                            echo("</div>");
-                                            echo("<div class=\" col-xs-12 col-md-1 col-md-offset-2 button\">");
-                                            echo("<button type=\"button\" href=\"#\" class=\"btn btn-md btn-danger\"><i class=\"fa fa-trash\"></i></button>");
-                                            echo("<button type=\"button\" href=\"#\" class=\"btn btn-md btn-success\"><i class=\"fa fa-pencil\"></i></button>");
-                                            echo("</div>");
-                                            echo("</div>");
-
-                                            //echo("<span  class=\"testo grassetto\">Password: </span>&nbsp<span class=\"testo\">" . $row['pass'] . "</span>&nbsp<br>");
-
-                                            echo("</div>");
-                                            echo("<div class=\"clearfix\"></div>");
-                                            echo("</li>");
-                                        }
-                                    } catch (PDOException $e) {
-                                        echo "Error: " . $e->getMessage();
-                                    }
-                                    ?>
+                                    <li class="list-group-item">
+                                        <div class="col-xs-12 col-sm-3">
+                                            <img src="http://api.randomuser.me/portraits/men/49.jpg" alt="Scott Stevens" class="img-responsive img-circle" />
+                                        </div>
+                                        <div class="col-xs-12 col-sm-9">
+                                            <span class="name">Scott Stevens</span><br/>
+                                            <span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title="5842 Hillcrest Rd"></span>
+                                            <span class="visible-xs"> <span class="text-muted">5842 Hillcrest Rd</span><br/></span>
+                                            <span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title="(870) 288-4149"></span>
+                                            <span class="visible-xs"> <span class="text-muted">(870) 288-4149</span><br/></span>
+                                            <span class="fa fa-comments text-muted c-info" data-toggle="tooltip" title="scott.stevens@example.com"></span>
+                                            <span class="visible-xs"> <span class="text-muted">scott.stevens@example.com</span><br/></span>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="col-xs-12 col-sm-3">
+                                            <img src="http://api.randomuser.me/portraits/men/97.jpg" alt="Seth Frazier" class="img-responsive img-circle" />
+                                        </div>
+                                        <div class="col-xs-12 col-sm-9">
+                                            <span class="name">Seth Frazier</span><br/>
+                                            <span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title="7396 E North St"></span>
+                                            <span class="visible-xs"> <span class="text-muted">7396 E North St</span><br/></span>
+                                            <span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title="(560) 180-4143"></span>
+                                            <span class="visible-xs"> <span class="text-muted">(560) 180-4143</span><br/></span>
+                                            <span class="fa fa-comments text-muted c-info" data-toggle="tooltip" title="seth.frazier@example.com"></span>
+                                            <span class="visible-xs"> <span class="text-muted">seth.frazier@example.com</span><br/></span>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="col-xs-12 col-sm-3">
+                                            <img src="http://api.randomuser.me/portraits/women/90.jpg" alt="Jean Myers" class="img-responsive img-circle" />
+                                        </div>
+                                        <div class="col-xs-12 col-sm-9">
+                                            <span class="name">Jean Myers</span><br/>
+                                            <span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title="4949 W Dallas St"></span>
+                                            <span class="visible-xs"> <span class="text-muted">4949 W Dallas St</span><br/></span>
+                                            <span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title="(477) 792-2822"></span>
+                                            <span class="visible-xs"> <span class="text-muted">(477) 792-2822</span><br/></span>
+                                            <span class="fa fa-comments text-muted c-info" data-toggle="tooltip" title="jean.myers@example.com"></span>
+                                            <span class="visible-xs"> <span class="text-muted">jean.myers@example.com</span><br/></span>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="col-xs-12 col-sm-3">
+                                            <img src="http://api.randomuser.me/portraits/men/24.jpg" alt="Todd Shelton" class="img-responsive img-circle" />
+                                        </div>
+                                        <div class="col-xs-12 col-sm-9">
+                                            <span class="name">Todd Shelton</span><br/>
+                                            <span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title="5133 Pecan Acres Ln"></span>
+                                            <span class="visible-xs"> <span class="text-muted">5133 Pecan Acres Ln</span><br/></span>
+                                            <span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title="(522) 991-3367"></span>
+                                            <span class="visible-xs"> <span class="text-muted">(522) 991-3367</span><br/></span>
+                                            <span class="fa fa-comments text-muted c-info" data-toggle="tooltip" title="todd.shelton@example.com"></span>
+                                            <span class="visible-xs"> <span class="text-muted">todd.shelton@example.com</span><br/></span>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="col-xs-12 col-sm-3">
+                                            <img src="http://api.randomuser.me/portraits/women/34.jpg" alt="Rosemary Porter" class="img-responsive img-circle" />
+                                        </div>
+                                        <div class="col-xs-12 col-sm-9">
+                                            <span class="name">Rosemary Porter</span><br/>
+                                            <span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title="5267 Cackson St"></span>
+                                            <span class="visible-xs"> <span class="text-muted">5267 Cackson St</span><br/></span>
+                                            <span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title="(497) 160-9776"></span>
+                                            <span class="visible-xs"> <span class="text-muted">(497) 160-9776</span><br/></span>
+                                            <span class="fa fa-comments text-muted c-info" data-toggle="tooltip" title="rosemary.porter@example.com"></span>
+                                            <span class="visible-xs"> <span class="text-muted">rosemary.porter@example.com</span><br/></span>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="col-xs-12 col-sm-3">
+                                            <img src="http://api.randomuser.me/portraits/women/56.jpg" alt="Debbie Schmidt" class="img-responsive img-circle" />
+                                        </div>
+                                        <div class="col-xs-12 col-sm-9">
+                                            <span class="name">Debbie Schmidt</span><br/>
+                                            <span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title="3903 W Alexander Rd"></span>
+                                            <span class="visible-xs"> <span class="text-muted">3903 W Alexander Rd</span><br/></span>
+                                            <span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title="(867) 322-1852"></span>
+                                            <span class="visible-xs"> <span class="text-muted">(867) 322-1852</span><br/></span>
+                                            <span class="fa fa-comments text-muted c-info" data-toggle="tooltip" title="debbie.schmidt@example.com"></span>
+                                            <span class="visible-xs"> <span class="text-muted">debbie.schmidt@example.com</span><br/></span>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="col-xs-12 col-sm-3">
+                                            <img src="http://api.randomuser.me/portraits/women/76.jpg" alt="Glenda Patterson" class="img-responsive img-circle" />
+                                        </div>
+                                        <div class="col-xs-12 col-sm-9">
+                                            <span class="name">Glenda Patterson</span><br/>
+                                            <span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title="5020 Poplar Dr"></span>
+                                            <span class="visible-xs"> <span class="text-muted">5020 Poplar Dr</span><br/></span>
+                                            <span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title="(538) 718-7548"></span>
+                                            <span class="visible-xs"> <span class="text-muted">(538) 718-7548</span><br/></span>
+                                            <span class="fa fa-comments text-muted c-info" data-toggle="tooltip" title="glenda.patterson@example.com"></span>
+                                            <span class="visible-xs"> <span class="text-muted">glenda.patterson@example.com</span><br/></span>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </li>
                                 </ul>
                             </div>
-                        </div>
-                        <div class="col-xs-12 col-md-4">
-                            <div class="row">
-                                <div class="col-xs-12 col-sm-12">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading c-list">
-                                            <span class="title">New Staff with Excell</span>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                    <div class="panel panel-yellow">
+                        <div class="panel-heading"><h4>Aggiungi STAFF</h4></div>
+                        <div class="panel-body">
+                            <form role="form" method="post" action="metodi/IscrizioneStaff.php"
+                                  enctype="multipart/form-data" id="form">
+                                <div class="row">
+                                    <div class="col-xs-8">
+                                        <div class="form-group">
+                                            <label for="nome">Nome:</label>
+                                            <input placeholder="Nome" type="text" class="form-control" id="name" required name="nome"/>
                                         </div>
-
-                                        <div class="row" style="display: none;">
-                                            <div class="col-xs-12">
-                                                
-                                            </div>
+                                        <div class="form-group">
+                                            <label for="cognome">Cognome:</label>
+                                            <input placeholder="Cognome" type="text" class="form-control" id="cognome" required name="cognome"/>
                                         </div>
-
-                                        <ul class="list-group" id="contact-list">
-                                            <li class="list-group-item">
-                                                <form role="form" action="metodi/newStaffExcell.php" method="POST" enctype="multipart/form-data">
-                                                    <div class="form-group">
-                                                        <a href="../File/nuovi_iscritti.xlsx"> Dowload file base </a><br>
-                                                        
-                                                        <input type="file" class="form-control" id="file" name="file">
-                                                    </div>
-                                                    <button type="submit" class="btn btn-default">Submit</button>
-                                                </form>
-
-                                        </ul>
-                                    </div>
-                                </div>   
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-12 col-sm-12">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading c-list">
-                                            <span class="title">New Staff</span>
+                                        <div class="form-group">
+                                            <label for="date">Data di nascita:</label>
+                                            <input type="text" id="date" name="date" class="form-control floating-label" placeholder="Data" required>
                                         </div>
-                                        <ul class="list-group formI" id="contact-list">
-                                            <li class="list-group-item">
-                                                <form role="form" method="post" action="metodi/IscrizioneStaff.php" enctype="multipart/form-data" id="form">
-                                                    <div class="row">
-                                                        <div class="col-xs-8">
-                                                            <div class="form-group">
-                                                                <label for="nome">Nome:</label> <input placeholder="Nome" type="text" class="form-control" id="name" name="nome" />
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="cognome">Cognome:</label> <input placeholder="Cognome" type="text" class="form-control" id="cognome" name="cognome" />
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="email">E-mail:</label> <input placeholder="e-mail" type="email" class="form-control" id="email" name="email" />
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="user">Username:</label> <input placeholder="username" type="text" class="form-control" id="user" name="user" />
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="pass">Password:</label> <input placeholder="password" type="password" class="form-control" id="pass" name="pass" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Sesso:</label><br />
-                                                        &nbsp; Maschio &nbsp;&nbsp;&nbsp; <input type="radio" name="sesso" value="maschio" /><br />
-                                                        &nbsp; Femmina &nbsp; <input type="radio" name="sesso" value="femmina" /><br />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="exampleInputFile">Foto del Profilo:</label> 
-                                                        <input type="file" id="img" name="img" />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <div class="col-xs-8">
-                                                            <select name="tipo" class="form-control">
-                                                                <option>Scegli tipo staff...</option>
-                                                                <?php
-                                                                include "../connessione.php";
-                                                                try {
-                                                                    foreach ($connessione->query("SELECT * FROM tipo_staff WHERE 1") as $row) {
-                                                                        echo("<option value=\"" . $row['id_staff'] . "\">" . $row['descrizione'] . "</option>");
-                                                                    }
-                                                                } catch (PDOException $e) {
-                                                                    echo "Error: " . $e->getMessage();
-                                                                }
-                                                                $connessione = null;
-                                                                ?>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <br/><br/>
-                                                    <div class="form-group">
-                                                        <div class="col-xs-8">
-                                                            <select name="Sevento" class="form-control">
-                                                                <option>Scegli evento...</option>
-                                                                <?php
-                                                                include "../connessione.php";
-                                                                try {
-                                                                    foreach ($connessione->query("SELECT * FROM evento WHERE 1") as $row) {
-                                                                        echo("<option value=\"" . $row['id_evento'] . "\">" . $row['nome_evento'] . "</option>");
-                                                                    }
-                                                                } catch (PDOException $e) {
-                                                                    echo "Error: " . $e->getMessage();
-                                                                }
-                                                                $connessione = null;
-                                                                ?>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <br/><br/><br/>
-                                                    <button type="submit" class="btn btn-primary">Iscrivi</button>
-                                                </form>
-                                            </li>
-                                        </ul>
+                                        <div class="form-group">
+                                            <label for="email">E-mail:</label>
+                                            <input placeholder="e-mail" type="email" class="form-control" id="email" name="email" required/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="user">Username:</label>
+                                            <input placeholder="username" type="text" class="form-control" id="user" name="user" required/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="pass">Password:</label>
+                                            <input placeholder="password" type="password" class="form-control" id="pass" name="pass" required/>
+                                        </div>
                                     </div>
                                 </div>
-
-                            </div>
+                                <div class="form-group">
+                                    <label>Sesso:</label><br/>
+                                    &nbsp; Maschio &nbsp;&nbsp;&nbsp; <input type="radio" name="sesso" value="maschio"/><br/>
+                                    &nbsp; Femmina &nbsp; <input type="radio" name="sesso" value="femmina"/><br/>
+                                </div>
+                                <div class='form-group'>
+                                    <label for="img">Foto Profilo:</label>
+                                    <input type="file" id="img" name="img" class="filestyle" data-buttonText="Find file">
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-8">
+                                        <select name="tipo" class="form-control">
+                                            <option>Scegli tipo staff...</option>
+                                            <?php
+                                            include "../connessione.php";
+                                            try {
+                                                foreach ($connessione->query("SELECT * FROM tipo_staff WHERE 1") as $row) {
+                                                    echo("<option value=\"" . $row['id_staff'] . "\">" . $row['descrizione'] . "</option>");
+                                                }
+                                            } catch (PDOException $e) {
+                                                echo "Error: " . $e->getMessage();
+                                            }
+                                            $connessione = null;
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <br/><br/>
+                                <div class="form-group">
+                                    <div class="col-xs-8">
+                                        <select name="Sevento" class="form-control">
+                                            <option>Scegli evento...</option>
+                                            <?php
+                                            include "../connessione.php";
+                                            try {
+                                                foreach ($connessione->query("SELECT * FROM evento WHERE 1") as $row) {
+                                                    echo("<option value=\"" . $row['id_evento'] . "\">" . $row['nome_evento'] . "</option>");
+                                                }
+                                            } catch (PDOException $e) {
+                                                echo "Error: " . $e->getMessage();
+                                            }
+                                            $connessione = null;
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <br/><br/><br/>
+                                <button type="submit" class="btn btn-primary">Iscrivi</button>
+                            </form>
                         </div>
                     </div>
-                    <!-- /.row -->
                 </div>
-                <!-- /.container-fluid -->
             </div>
-            <!-- /#page-wrapper -->
         </div>
-        <!-- /#wrapper -->
-    </body>
+    </div>
+</div>
+<script type="text/javascript">
+    var key = "#date";
+    $(key).bootstrapMaterialDatePicker
+    ({
+        time: false,
+        clearButton: true
+    });
+
+    $(":file").filestyle({buttonText: "Find file"});
+</script>
+</body>
 </html>
