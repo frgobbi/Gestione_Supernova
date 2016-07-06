@@ -228,7 +228,7 @@ function modifica(id_p, nome_p, cat, prezzo, disp){
             + "<div class=\"col-xs-12 col-md-9 col-md-offset-1 col-sm-12\">"
             + "<div class=\"col-xs-12 col-md-9 col-sm-12\">"
             + "<span class=\"name\">" + nome_p + "</span><br/>"
-            + "<label for=\"nomeP" + id_p + "\">Nome Prodotto:</label><input type='text' id=\"nomeP" + id_p + "\" name=\"nomeP" + id_p + "\" class=\"form-control\" value=\"" + nome_p + "\"/>"
+            + "<label for=\"nomeP" + id_p + "\">Nome Prodotto:</label><input type='text' id=\"nomeP" + id_p + "\" name=\"nomeP" + id_p + "\" class=\"form-control\" value=\"" + nome_p + " maxlength='13'\"/>"
             + "<label for=\"prezzoP" + id_p + "\">Prezzo:</label><input type='text' id=\"prezzoP" + id_p + "\" name=\"prezzoP" + id_p + "\" class=\"form-control\" value=\"" + prezzo + "\"/>"
             + "<label for=\"disponibilita"+id_p+"\">Disponibilit&agrave: (spunta per nessun vincolo)</label>"
             +"<div class=\"input-group\">"

@@ -8,7 +8,12 @@
 include "../../../connessione.php";
 session_start();
 $evento = $_SESSION['id_evento'];
+if($connessione->query("SELECT d_ord FROM serata WHERE id_evento = 1 AND chiusura = 0")->rowCount() == 0){
+    echo "2";
+    exit;
+}
 $dataS = $connessione->query("SELECT d_ord FROM serata WHERE id_evento = 1 AND chiusura = 0")->fetch(PDO::FETCH_OBJ);
+
 
 $tipoA = $_GET['tipoA'];
 $numP = $_GET['numero'];

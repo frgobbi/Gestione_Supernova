@@ -17,7 +17,7 @@ $Nevento;
 include "../../../connessione.php";
 
 try {
-    $sql = "INSERT INTO `serata`(`d_ord`, `id_evento`, `incasso`, `chiusura`, `n_ordini`) VALUES ('$date',$evento,0,0,0)";
+    $sql = "INSERT INTO `serata`(`d_ord`, `id_evento`, `chiusura`, `n_ordini`) VALUES ('$date',$evento,0,0)";
     $connessione->exec($sql);
 }catch (PDOException $e){
     echo "error: ".$e->getMessage();
@@ -27,7 +27,7 @@ try{
 
     foreach ($connessione->query("SELECT * FROM `serata` INNER JOIN evento on serata.id_evento = evento.id_evento WHERE d_ord = '$date'") as $row){
         $data = $row['d_ord'];
-        $incasso = $row['incasso'];
+        //$incasso = $row['incasso'];
         $num = $row['n_ordini'];
         $Nevento = $row['nome_evento'];
     }
@@ -40,7 +40,7 @@ echo json_encode(
     array("esito"=>$b,
         "dataS"=>$data,
         "evento"=>$Nevento,
-        "incasso"=>$incasso,
+        //"incasso"=>$incasso,
         "numero"=>$num)
 );
 /*echo "{ ".

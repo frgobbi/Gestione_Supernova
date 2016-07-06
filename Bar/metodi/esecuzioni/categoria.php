@@ -12,7 +12,7 @@ try{
     echo("<script>".
          "alert(\"Nuova categira di prodotto Creata\");".
          "</script>");
-    header('Refresh:1; url=../../Gprodotto.php');
+    echo "<script type='text/javascript'>location.href=\"../../Gprodotto.php\"</script>";
 } catch (PDOException $e) {
     echo("error: ".$e->getMessage());
 }

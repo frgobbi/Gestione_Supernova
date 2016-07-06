@@ -1,3 +1,4 @@
+<?php session_start();?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -10,13 +11,10 @@
         <div id="wrapper">
             <!-- Navigation -->
             <?php
-            session_start();
-                if($_SESSION['login']==TRUE){
-                }
-                else
-                {
-                 header("Location:../index.php" );
-                }
+            if (!$_SESSION['login'])
+            {
+                echo "<script type='text/javascript'>location.href=\"../index.php\"</script>";
+            }
             
             require '../ComponentiBase/nav.php';
             navLog($_SERVER['PHP_SELF']);

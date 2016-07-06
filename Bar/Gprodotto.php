@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="CSS-Bar/CSS.css">
 
     <script src="//rawgithub.com/stidges/jquery-searchable/master/dist/jquery.searchable-1.0.0.min.js"></script>
+
     <script type="text/javascript">
 
         $(function () {
@@ -73,7 +74,7 @@
     if ($_SESSION['login'] == TRUE) {
 
     } else {
-        header("Location:../index.php");
+        echo "<script type='text/javascript'>location.href=\"../index.php\"</script>";
     }
 
     require '../ComponentiBase/nav.php';
@@ -188,8 +189,8 @@
                                             <li class="list-group-item">
                                                 <label>Scarica modello...</label><br>
                                                 <button class="btn btn-primary btn-block"
-                                                        onClick="window.location.href='work_files/Modello_Caricamento_Merende.xlsx'">
-                                                    <i class="fa fa-download"></i></button>
+                                                    onClick="window.location.href='../File/Modello_prodotti.xlsx'"><i class="fa fa-download"></i>
+                                                </button>
                                                 <form role="form" method="post"
                                                       action="metodi/esecuzioni/caricamento_excell.php"
                                                       enctype="multipart/form-data">
@@ -233,7 +234,7 @@
                                                                 <label for="descrizione">Descrizione</label> <input
                                                                     placeholder="Descrizione" type="text"
                                                                     class="form-control" id="descrizione"
-                                                                    name="descrizione" required/>
+                                                                    name="descrizione" maxlength="13" required/>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="prezzo">Prezzo</label> <input

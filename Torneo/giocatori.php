@@ -21,7 +21,7 @@ session_start();
     <link rel="stylesheet"
           href="../Librerie/bootstrap-material-datetimepicker-gh-pages/css/bootstrap-material-datetimepicker.css"/>
     <link rel="stylesheet" href="../Public/CSS/input-file.css"/>
-    <link rel="stylesheet" href="CSS/RegoleS.css"/>
+    <link rel="stylesheet" href="../Librerie/Elementi/Lista.css"/>
 
     <!--<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>-->
     <script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
@@ -113,7 +113,7 @@ session_start();
     <?php
     if ($_SESSION['login'] == TRUE) {
     } else {
-        header("Location:../index.php");
+        echo "<script type='text/javascript'>location.href=\"../index.php\"</script>";
     }
 
     require '../ComponentiBase/nav.php';
@@ -168,7 +168,7 @@ session_start();
                                     $idS = $row['id_squadra'];
                                     echo "<li id=\"giocatore$id_giocatore\" class=\"list-group-item\">";
                                     echo "<div class=\"col-xs-12 col-sm-3\">";
-                                    echo "<img src=\"../$foto\" alt=\"Scott Stevens\" class=\"img-responsive img-circle\"/>";
+                                    echo "<img src=\"../$foto\" style='width: 180px; height: 180px;' alt=\"Scott Stevens\" class=\"img-responsive img-circle\"/>";
                                     echo "</div>";
                                     echo "<div id='nome$id_giocatore' class=\"col-xs-12 col-sm-8\">";
                                     echo "<span class=\"name\">" . $row['cognome'] . " " . $row['nome'] . "</span><br/>";
@@ -176,8 +176,8 @@ session_start();
                                     echo "<div id='dati$id_giocatore' class=\"col-xs-12 col-sm-6\">";
                                         echo "<span><strong>Cognome: &nbsp;</strong></span><span>" . $row['cognome'] . "</span>"
                                             . "<span><strong>&nbsp;&nbsp;Nome: &nbsp;</strong></span><span>" . $row['nome'] . "</span><br/>"
-                                            . "<span><strong>Data di nascita: &nbsp;</strong></span><span>" . $row['Nascita'] . "</span>"
-                                            . "<span><strong>&nbsp;&nbsp;Luogo nascita: &nbsp;</strong></span><span>" . $row['Luogo_n'] . "</span><br/>"
+                                            . "<span><strong>Data di nascita: &nbsp;</strong></span><span>" . $row['Nascita'] . "</span><br/>"
+                                            . "<span><strong>Luogo nascita: &nbsp;</strong></span><span>" . $row['Luogo_n'] . "</span><br/>"
                                             . "<span><strong>Codice Fiscale: &nbsp;</strong></span><span>" . $row['CodiceFiscale'] . "</span><br/>"
                                             . "<span><strong>Residenza: &nbsp;</strong></span><span>" . $row['Res'] . "</span><br/>"
                                             . "<span><strong>Squadra: &nbsp;</strong></span><span>" . $row['nomeSQ'] . "</span><br/>";

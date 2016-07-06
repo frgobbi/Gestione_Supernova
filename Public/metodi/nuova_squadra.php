@@ -16,14 +16,14 @@ try{
 if($_FILES['input-file-preview']['tmp_name']=="")
 {
     if(strcmp($numero_ref, "") == 0){
-        $sql = "INSERT INTO `squadra` (`id_sq`, `nomeSQ`,`Nome_Ref` , `mail`, `Numero`, `srcF`, `p_vINTe`, `p_perse`, `p_pareggio`, `punti`, `gol_f`, `gol_s`, `id_girone`, `id_evento`, `attiva`) VALUES"
-            ." (NULL, '$nome_S', '$nome_ref', '$email_ref', NULL, NULL, '0', '0', '0', '0', '0', '0', NULL, $evento, 1)";
+        $sql = "INSERT INTO `squadra` (`id_sq`, `nomeSQ`,`Nome_Ref` , `mail`, `Numero`, `srcF`, `id_girone`, `id_evento`, `attiva`) VALUES"
+            ." (NULL, '$nome_S', '$nome_ref', '$email_ref', NULL, NULL, NULL, $evento, 1)";
 
             $connessione->exec($sql);
 
     } else {
-        $sql = "INSERT INTO `squadra` (`id_sq`, `nomeSQ`,`Nome_Ref` , `mail`, `Numero`,`srcF`, `p_vINTe`, `p_perse`, `p_pareggio`, `punti`, `gol_f`, `gol_s`, `id_girone`, `id_evento`, `attiva`) VALUES"
-            ." (NULL, '$nome_S', '$nome_ref', '$email_ref', '$numero_ref', NULL, '0', '0', '0', '0', '0', '0', NULL, $evento, 1)";
+        $sql = "INSERT INTO `squadra` (`id_sq`, `nomeSQ`,`Nome_Ref` , `mail`, `Numero`,`srcF`, `id_girone`, `id_evento`, `attiva`) VALUES"
+            ." (NULL, '$nome_S', '$nome_ref', '$email_ref', '$numero_ref', NULL, NULL, $evento, 1)";
 
             $connessione->exec($sql);
 
@@ -36,14 +36,14 @@ if($_FILES['input-file-preview']['tmp_name']=="")
     move_uploaded_file($tmpNome, "../../ImmaginiApp/Squadre/" . $nomeF);
     $percorso = "ImmaginiApp/Squadre/" . $nomeF;
     if(strcmp($numero_ref, "") == 0){
-        $sql = "INSERT INTO `squadra` (`id_sq`, `nomeSQ`,`Nome_Ref` , `mail`, `Numero`, `srcF`, `p_vINTe`, `p_perse`, `p_pareggio`, `punti`, `gol_f`, `gol_s`, `id_girone`, `id_evento`, `attiva`) VALUES"
-            ." (NULL, '$nome_S', '$nome_ref', '$email_ref', NULL, '$percorso' , '0', '0', '0', '0', '0', '0', NULL, $evento, 1)";
+        $sql = "INSERT INTO `squadra` (`id_sq`, `nomeSQ`,`Nome_Ref` , `mail`, `Numero`, `srcF`, `id_girone`, `id_evento`, id_sottotorneo, `attiva`) VALUES"
+            ." (NULL, '$nome_S', '$nome_ref', '$email_ref', NULL, '$percorso' , NULL, $evento, NULL, 1)";
 
             $connessione->exec($sql);
 
     } else {
-        $sql = "INSERT INTO `squadra` (`id_sq`, `nomeSQ`,`Nome_Ref` , `mail`, `Numero`,`srcF`, `p_vINTe`, `p_perse`, `p_pareggio`, `punti`, `gol_f`, `gol_s`, `id_girone`, `id_evento`, `attiva`) VALUES"
-            ." (NULL, '$nome_S', '$nome_ref', '$email_ref', '$numero_ref', '$percorso', '0', '0', '0', '0', '0', '0', NULL, $evento, 1)";
+        $sql = "INSERT INTO `squadra` (`id_sq`, `nomeSQ`,`Nome_Ref` , `mail`, `Numero`,`srcF`, `id_girone`, `id_evento`, id_sottotorneo, `attiva`) VALUES"
+            ." (NULL, '$nome_S', '$nome_ref', '$email_ref', '$numero_ref', '$percorso', NULL, $evento, NULL, 1)";
 
             $connessione->exec($sql);
 
@@ -68,6 +68,7 @@ for($i=0;$i<$numero_G;$i++){
     $Kres = "resG".$i;
     $Kres = "resG".$i;
     $Kluogo = "LuogoG".$i;
+    $KeyF = "file".$i;
 
 
     $nome = filter_input(INPUT_POST, $Knome, FILTER_SANITIZE_STRING);
@@ -87,16 +88,16 @@ for($i=0;$i<$numero_G;$i++){
         $app = explode("/", $estensione);
         $ex = $app[1];
 
-        $foto = "immaginiApp/Giocatori/" . $nome . "_" . $cognome . "." . $ex;
+        $foto = "ImmaginiApp/Giocatori/" . $nome . "_" . $cognome . "." . $ex;
         $tmpNome = $_FILES[$keyF]['tmp_name'];
         move_uploaded_file($tmpNome, "../../" . $foto);
 
     } else {
-        $foto = "immaginiApp/Giocatori/profiloU.jpg";
+        $foto = "ImmaginiApp/Giocatori/profiloG.png";
 
     }
-    $sql = "INSERT INTO `giocatore`(`id_g`, `nome`, `cognome`, `d_nascita`, `Luogo_n`, `CodiceFiscale`, `Res`, `foto`, `gol`, `c_gialli`, `c_rossi`, `id_squadra`) "
-        ." VALUES (NULL, '$nome', '$cognome', '$data', '$Luogo', '$cod', '$res', '$foto', '0', '0', '0', '$id_SQ');";
+    $sql = "INSERT INTO `giocatore`(`id_g`, `nome`, `cognome`, `d_nascita`, `Luogo_n`, `CodiceFiscale`, `Res`, `foto`, `id_squadra`) "
+        ." VALUES (NULL, '$nome', '$cognome', '$data', '$Luogo', '$cod', '$res', '$foto', '$id_SQ');";
 
         $connessione->exec($sql);
 

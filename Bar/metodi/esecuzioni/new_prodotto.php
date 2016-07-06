@@ -7,6 +7,12 @@
  */
 
 $nome = filter_input(INPUT_POST, "descrizione", FILTER_SANITIZE_STRING);
+$numC = strlen($nome);
+$spazi = 13 -$numC;
+
+for($i = 0; $i<$spazi; $i++){
+    $nome = $nome . " ";
+}
 $prezzo = filter_input(INPUT_POST, "prezzo", FILTER_SANITIZE_STRING);
 $categoria = filter_input(INPUT_POST, "categoria", FILTER_SANITIZE_STRING);
 $disponibilita = filter_input(INPUT_POST, "disponibilita", FILTER_SANITIZE_STRING);
@@ -51,5 +57,5 @@ if($null == 1){
 
 }
 $connessione = null;
-header('Refresh:1; url=../../Gprodotto.php');
+echo "<script type='text/javascript'>location.href=\"../../Gprodotto.php\"</script>";
 

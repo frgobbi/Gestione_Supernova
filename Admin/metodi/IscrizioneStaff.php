@@ -60,12 +60,8 @@ function caricamentoFoto($nome, $cognome, $sesso) {
         $tmpNome = $_FILES['img']['tmp_name'];
         move_uploaded_file($tmpNome, "../../" . $foto);
     } else {
-        $app = strcasecmp($sesso, "maschio");
-        if ($app == 0) {
             $foto = "ImmaginiApp/Profilo/profiloU.jpg";
-        } else {
-            $foto = "ImmaginiApp/Profilo/profiloD.jpg";
-        }
+
     }
     return $foto;
 }

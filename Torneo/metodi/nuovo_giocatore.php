@@ -34,27 +34,27 @@
         $app = explode("/", $estensione);
         $ex = $app[1];
 
-        $foto = "immaginiApp/Giocatori/" . $nome . "_" . $cognome . "." . $ex;
+        $foto = "ImmaginiApp/Giocatori/" . $nome . "_" . $cognome . "." . $ex;
         $tmpNome = $_FILES[$keyF]['tmp_name'];
         move_uploaded_file($tmpNome, "../../" . $foto);
 
     } else {
-        $foto = "immaginiApp/Giocatori/profiloU.jpg";
+        $foto = "ImmaginiApp/Giocatori/profiloG.png";
 
     }
 include "../../connessione.php";
 try{
-    $sql = "INSERT INTO `giocatore`(`id_g`, `nome`, `cognome`, `d_nascita`, `Luogo_n`, `CodiceFiscale`, `Res`, `foto`, `gol`, `c_gialli`, `c_rossi`, `id_squadra`) "
-        ." VALUES (NULL, '$nome', '$cognome', '$data', '$Luogo', '$cod', '$res', '$foto', '0', '0', '0', '$SQ');";
+    $sql = "INSERT INTO `giocatore`(`id_g`, `nome`, `cognome`, `d_nascita`, `Luogo_n`, `CodiceFiscale`, `Res`, `foto`, `id_squadra`) "
+        ." VALUES (NULL, '$nome', '$cognome', '$data', '$Luogo', '$cod', '$res', '$foto', '$SQ');";
 
     $connessione->exec($sql);
 
 } catch (PDOException $e){
     //echo "error:".$e->getMessage();
     echo "<script>
-    alert('qualcosa è andato storto, per favore riprovare!');
+    alert('qualcosa &egrave andato storto, per favore riprovare!');
    </script>";
-    header('Refresh:0,5; url=../giocatori.php');
+    echo "<script type='text/javascript'>location.href=\"../giocatori.php\"</script>";
 }
 $connessione = null;
 header('Location:../giocatori.php');

@@ -235,6 +235,6 @@ else
 }
 
 //Reindirizzamento alla pagina di gestione dei prodotti.
-header("Refresh:0.05;url=../../gestione_prodotti.php");
+echo "<script type='text/javascript'>location.href=\"../../Gprodotto.php\"</script>";
 //Distruzione della connessione al database.
 $connessione = null;

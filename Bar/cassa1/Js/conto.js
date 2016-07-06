@@ -5,8 +5,8 @@
  */
 /* global FALSE */
 var i;
-var k = 0;
-var n = "";
+var k = 0;//numero di elementi ordinati
+var n = "";//numero tastiera
 var prezzi = [];
 var attributi = [];
 var qua = [];
@@ -14,26 +14,32 @@ var Ptot = [];
 var idProdotti = [];
 var b = 0;
 var totale = 0;
+var totalet;
 var resto = 0;
 var moltiplicatore = 0;
 
-//SRITTURA SCONTRINO VIRTUALE
+
+//SCRITTURA SCONTRINO VIRTUALE
 function scontrino() {
     $("#corpoS").html("");
     $("#footerS").html("");
     var tot = 0;
-    for (i = 0; i < attributi.length; i++) {
-        $("#corpoS").append("" + attributi[i] + ":  &nbsp;&nbsp;" + qua[i] + "X &nbsp;&nbsp;" + prezzi[i] + "€&nbsp;&nbsp;&nbsp;&nbsp;Tot:" + (qua[i] * prezzi[i]) + "€<br>");
-        tot += (qua[i] * prezzi[i]);
+    for (i = 0; i < k; i++) {
+        if (qua[i] != 0);
+        {
+            $("#corpoS").append("" + attributi[i] + ":  &nbsp;&nbsp;" + qua[i] + "X &nbsp;&nbsp;" + prezzi[i] + "€&nbsp;&nbsp;&nbsp;&nbsp;Tot:" + (qua[i] * prezzi[i]) + "€<br>");
+            tot += (qua[i] * prezzi[i]);
+        }
+
     }
-    $("#footerS").html("<hr class=\"divisore\">Totale: " + tot + " €");
+    $("#footerS").html("<hr class=\"divisore\">Totale: " + tot + " &euro");
 }
 
-/*function scontrinoCanc() {
+function scontrinoCanc() {
     $("#corpoS").html("");
     $("#footerS").html("");
     document.getElementById("display").innerHTML = "";
-}*/
+}
 //BOTTONE MOLTIPLICA PRODOTTO
 function X() {
     moltiplicatore = $("#display").val();
@@ -52,9 +58,10 @@ function tastiera(num) {
 }
 
 function varie() {
+
     if (n > 0) {
         prezzi[k] = n;
-        attributi[k] = "varie";
+        attributi[k] = "varie        ";
         qua[k] = 1;
         idProdotti[k] = "v";
         document.getElementById("display").innerHTML = "";
@@ -129,12 +136,64 @@ function automatico(prezzo, nome, id) {
 }
 
 function subtot(tipo) {
-
-    var nProdotti = qua.length;
-    var parametri = "tipoA=" + tipo + "&numero=" + nProdotti;
-    for (var i = 0; i < nProdotti; i++) {
+    totalet = 0;
+    var rigaS = "3;1";
+    var parametri = "tipoA=" + tipo + "&numero=" + k;
+    for (var i = 0; i < k; i++) {
         parametri += "&nome" + i + "=" + attributi[i] + "&quantita" + i + "=" + qua[i] + "&prezzo" + i + "=" + prezzi[i] + "&idP" + i + "=" + idProdotti[i];
+        var molt = qua[i] * prezzi[i];
+        rigaS += attributi[i]
+        if (qua[i] <= 9) {
+            rigaS += "   " + qua[i] + "X";
+        } else {
+            if (qua[i] <= 99) {
+                rigaS += "  " + qua[i] + "X";
+            } else {
+                rigaS += qua[i] + "X";
+            }
+        }
+        var appoggio = prezzi[i].toString();
+        var prezzoS = appoggio.toString();
+        var parti = prezzoS.split(".");
+        if (parti[0] <= 9) {
+            var prezzo = parseFloat(prezzi[i]);
+            rigaS += "   " + prezzo + "e";
+        } else {
+            if (parti[0] <= 99) {
+                var prezzo = parseFloat(prezzi[i]);
+                rigaS += "  " + prezzo + "e";
+            } else {
+                if (parti[0] <= 999) {
+                    var prezzo = parseFloat(prezzi[i]);
+                    rigaS += " " + prezzo + "e";
+                } else {
+                    var prezzo = parseFloat(prezzi[i]);
+                    rigaS += prezzo + "e";
+                }
+            }
+        }
+        var appoggio = molt.toString();
+        var interoS = appoggio.split(".");
+        var intero = parseInt(interoS[0]);
+        if (intero <= 9) {
+            rigaS += "=   " + molt + "e:";
+        } else {
+            if (intero[0] <= 99) {
+                rigaS += "=   " + molt + "e:";
+            } else {
+                if (intero[0] <= 99) {
+                    rigaS += "=   " + molt + "e:";
+                } else {
+                    rigaS += "= " + molt + "e:";
+                }
+            }
+        }
+        totalet = totalet + molt;
+
+//totS = (parseInt(totS)+parseInt(molt));
+
     }
+
 
     $.ajax({
         // definisco il tipo della chiamata
@@ -147,23 +206,38 @@ function subtot(tipo) {
         //dataType: "html",
         // imposto un'azione per il caso di successo
         success: function (risposta) {
-
-            if (risposta != 1) {
-                if (k > 0) {
-                    totale = 0;
-                    for (i = 0; i < prezzi.length; i++) {
-                        Ptot[i] = prezzi[i] * qua[i];
-                        totale = totale + Ptot[i];
-                    }
-                    document.getElementById("display").innerHTML = "";
-                    document.getElementById("display").innerHTML = "Tot.: &euro; " + totale;
-                    b = 1;
-                } else {
-                    document.getElementById("display").innerHTML = "";
-                    document.getElementById("display").innerHTML = "Comando non valido";
-                }
+            if (risposta == 2) {
+                alert("Prima di fare ordinazioni devi aprire una serata!!");
             } else {
-                alert("alcuni prodotti sono esauriti");
+                if (risposta != 1) {
+                    if (k > 0) {
+                        totale = 0;
+                        for (i = 0; i < k; i++) {
+                            Ptot[i] = prezzi[i] * qua[i];
+                            totale = totale + Ptot[i];
+                        }
+                        totaleScontrino = totale
+                        document.getElementById("display").innerHTML = "";
+                        document.getElementById("display").innerHTML = "Tot.: &euro; " + totale;
+                        rigaS += ";2;1                             TOTALE " + totaleScontrino + " e";
+                        $.ajax({
+                            type: "GET",
+                            url: "../Librerie/Stampante/socket.php",
+                            data: "comando=" + rigaS,
+                            success: function () {
+                            },
+                            error: function () {
+                            }
+                        });
+                        b = 1;
+
+                    } else {
+                        document.getElementById("display").innerHTML = "";
+                        document.getElementById("display").innerHTML = "Comando non valido";
+                    }
+                } else {
+                    alert("alcuni prodotti sono esauriti");
+                }
             }
             prezzi = [];
             attributi = [];
@@ -183,20 +257,98 @@ function subtot(tipo) {
 function tot(tipo) {
 
     if (b !== 0) {
+        var stringa = "1";
+        stringa += "                            CONTANTI " + n + " e:";
         resto = 0;
-        resto = n - totale;
+        resto = n - totalet;
         resto = arrotonda(resto, 2);
+        stringa += ";1";
+        stringa += "                                 RESTO " + resto + " e:;4";
+        $.ajax({
+            type: "GET",
+            url: "../Librerie/Stampante/socket.php",
+            data: "comando=" + stringa,
+            success: function () {
+            },
+            error: function () {
+            }
+        });
         document.getElementById("display").innerHTML = "";
         document.getElementById("display").innerHTML = "Resto: &euro; " + resto;
-        $("#footerS").append("<br><hr class\"divisore\">Resto: " + resto + " €");
+        $("#footerS").append("<br><hr class\"divisore\">Resto: " + resto + " &euro");
 
+        rezzi = [];
+        attributi = [];
+        qua = [];
+        b = 0;
+        n = "";
+        k = 0;
+        totale = 0;
+        resto = 0;
 
     } else {
         if (k > 0) {
-            var nProdotti = qua.length;
-            var parametri = "tipoA=" + tipo + "&numero=" + nProdotti;
-            for (var i = 0; i < nProdotti; i++) {
+            totalet = 0;
+            var rigaS = "3;1";
+            //var nProdotti = qua.length;
+            var parametri = "tipoA=" + tipo + "&numero=" + k;
+            for (var i = 0; i < k; i++) {
                 parametri += "&nome" + i + "=" + attributi[i] + "&quantita" + i + "=" + qua[i] + "&prezzo" + i + "=" + prezzi[i] + "&idP" + i + "=" + idProdotti[i];
+                var molt = qua[i] * prezzi[i];
+                rigaS += attributi[i]
+                if (qua[i] <= 9) {
+                    rigaS += "   " + qua[i] + "X";
+                } else {
+                    if (qua[i] <= 99) {
+                        rigaS += "  " + qua[i] + "X";
+                    } else {
+                        rigaS += qua[i] + "X";
+                    }
+                }
+
+                var parti = prezzi[i].split(".");
+                if (parti[0] <= 9) {
+                    var prezzo = parseFloat(prezzi[i]);
+                    rigaS += "   " + prezzo + "e";
+                } else {
+                    if (parti[0] <= 99) {
+                        var prezzo = parseFloat(prezzi[i]);
+                        rigaS += "  " + prezzo + "e";
+                    } else {
+                        if (parti[0] <= 999) {
+                            var prezzo = parseFloat(prezzi[i]);
+                            rigaS += " " + prezzo + "e";
+                        } else {
+                            var prezzo = parseFloat(prezzi[i]);
+                            rigaS += prezzo + "e";
+                        }
+                    }
+                }
+                var appoggio = molt.toString();
+                var interoS = appoggio.split(".");
+                var intero = parseInt(interoS[0]);
+                if (intero <= 9) {
+                    rigaS += "=   " + molt + "e:";
+                } else {
+                    if (intero[0] <= 99) {
+                        rigaS += "=   " + molt + "e:";
+                    } else {
+                        if (intero[0] <= 99) {
+                            rigaS += "=   " + molt + "e:";
+                        } else {
+                            rigaS += "= " + molt + "e:";
+                        }
+                    }
+                }
+                totalet = totalet + molt;
+                rezzi = [];
+                attributi = [];
+                qua = [];
+                b = 0;
+                n = "";
+                k = 0;
+                totale = 0;
+                resto = 0;
             }
 
             $.ajax({
@@ -210,32 +362,49 @@ function tot(tipo) {
                 //dataType: "html",
                 // imposto un'azione per il caso di successo
                 success: function (risposta) {
-
-                    if (risposta != 1) {
-                        if (k > 0) {
-                            totale = 0;
-                            for (i = 0; i < prezzi.length; i++) {
-                                Ptot[i] = prezzi[i] * qua[i];
-                                totale = totale + Ptot[i];
-                            }
-                            document.getElementById("display").innerHTML = "";
-                            document.getElementById("display").innerHTML = "Tot.: &euro; " + totale;
-                            b = 1;
-                        } else {
-                            document.getElementById("display").innerHTML = "";
-                            document.getElementById("display").innerHTML = "Comando non valido";
-                        }
+                    if (risposta == 2) {
+                        alert("Prima di fare ordinazioni devi aprire una serata!!");
                     } else {
-                        alert("alcuni prodotti sono esauriti");
+                        if (risposta != 1) {
+                            if (k > 0) {
+                                totale = 0;
+                                for (i = 0; i < k; i++) {
+                                    Ptot[i] = prezzi[i] * qua[i];
+                                    totale = totale + Ptot[i];
+                                }
+                                document.getElementById("display").innerHTML = "";
+                                document.getElementById("display").innerHTML = "Tot.: &euro; " + totale;
+                                b = 1;
+                                rigaS += ";1                             TOTALE " + totaleScontrino + " e:";
+                                rigaS += "                              CONTANTI 0 e:";
+                                rigaS += "                                 RESTO 0 e:;4";
+                                $.ajax({
+                                    type: "GET",
+                                    url: "../Librerie/Stampante/socket.php",
+                                    data: "comando=" + rigaS,
+                                    success: function () {
+                                    },
+                                    error: function () {
+                                    }
+                                });
+                                prezzi = [];
+                                attributi = [];
+                                qua = [];
+                                b = 0;
+                                n = "";
+                                k = 0;
+                                totale = 0;
+                                resto = 0;
+                            } else {
+                                document.getElementById("display").innerHTML = "";
+                                document.getElementById("display").innerHTML = "Comando non valido";
+                            }
+                        } else {
+                            alert("alcuni prodotti sono esauriti");
+                        }
                     }
-
-                    for (i = 0; i < prezzi.length; i++) {
-                        Ptot[i] = prezzi[i] * qua[i];
-                        totale = totale + Ptot[i];
-                    }
-                    document.getElementById("display").innerHTML = "";
-                    document.getElementById("display").innerHTML = "Tot.: &euro; " + totale;
-                },
+                }
+                ,
                 // ed una per il caso di fallimento
                 error: function () {
 
@@ -245,6 +414,7 @@ function tot(tipo) {
             document.getElementById("display").innerHTML = "";
             document.getElementById("display").innerHTML = "Comando non valido";
         }
+
 
         prezzi = [];
         attributi = [];
@@ -256,7 +426,6 @@ function tot(tipo) {
         resto = 0;
     }
 }
-
 
 function annulla() {
     prezzi = [];

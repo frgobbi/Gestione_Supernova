@@ -27,7 +27,7 @@ function barraLaterale($tipo, $percorso) {
     //<!--Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
     echo("<div class = \"collapse navbar-collapse navbar-ex1-collapse\">");
     echo("<ul class = \"nav navbar-nav side-nav\">");
-    echo("<img id=\"imgP\" alt=\"Bootstrap Image Preview\" src=\"../$img\" class=\"img-circle\" />");
+    echo("<img id=\"imgP\" alt=\"Bootstrap Image Preview\" src=\"../$img\" style='width: 170px; height: 170px' class=\"img-circle\" />");
     echo("<li>");
     echo("<a href = \"../GestioneUtente/gestioneUtente.php\"><center>$nome</center></a>");
     echo("</li>");
@@ -73,7 +73,9 @@ function risorse($funzione) {
         case 2:
             $vettore = array(
                 array("Torneo/squadre.php", "Squadre","panel-info", "fa fa-pencil" ),
-                array("Torneo/giocatori.php", "Giocatori","panel-success", "fa fa-pencil" )
+                array("Torneo/giocatori.php", "Giocatori","panel-success", "fa fa-pencil"),
+                array("Torneo/Gironi.php", "Gironi","panel-red", "fa fa-pencil"),
+                array("Torneo/Partite.php", "Partite","panel-primary", "fa fa-pencil")
             );
             break;
         case 3:
