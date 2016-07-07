@@ -277,7 +277,7 @@ function tot(tipo) {
         document.getElementById("display").innerHTML = "Resto: &euro; " + resto;
         $("#footerS").append("<br><hr class\"divisore\">Resto: " + resto + " &euro");
 
-        rezzi = [];
+        prezzi = [];
         attributi = [];
         qua = [];
         b = 0;
@@ -341,14 +341,6 @@ function tot(tipo) {
                     }
                 }
                 totalet = totalet + molt;
-                rezzi = [];
-                attributi = [];
-                qua = [];
-                b = 0;
-                n = "";
-                k = 0;
-                totale = 0;
-                resto = 0;
             }
 
             $.ajax({
@@ -366,7 +358,7 @@ function tot(tipo) {
                         alert("Prima di fare ordinazioni devi aprire una serata!!");
                     } else {
                         if (risposta != 1) {
-                            if (k > 0) {
+
                                 totale = 0;
                                 for (i = 0; i < k; i++) {
                                     Ptot[i] = prezzi[i] * qua[i];
@@ -387,22 +379,20 @@ function tot(tipo) {
                                     error: function () {
                                     }
                                 });
-                                prezzi = [];
-                                attributi = [];
-                                qua = [];
-                                b = 0;
-                                n = "";
-                                k = 0;
-                                totale = 0;
-                                resto = 0;
-                            } else {
-                                document.getElementById("display").innerHTML = "";
-                                document.getElementById("display").innerHTML = "Comando non valido";
-                            }
+
+
                         } else {
                             alert("alcuni prodotti sono esauriti");
                         }
                     }
+                    prezzi = [];
+                    attributi = [];
+                    qua = [];
+                    b = 0;
+                    n = "";
+                    k = 0;
+                    totale = 0;
+                    resto = 0;
                 }
                 ,
                 // ed una per il caso di fallimento
